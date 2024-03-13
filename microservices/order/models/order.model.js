@@ -10,7 +10,9 @@ const orderSchema= new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["Delivered","Cancelled"]
+        enum:["Proccessing","Delivered","Cancelled"],
+        default:"Proccessing"
+
     },
     description:{
         type:String

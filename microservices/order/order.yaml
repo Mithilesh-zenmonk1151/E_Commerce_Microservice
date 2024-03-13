@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: Order Service API
+  version: 1.0.0
+  description: API for managing orders
+servers:
+  - url: http://localhost:3000/api/v1
+paths:
+  /orders:
+    get:
+      summary: Get all orders
+      responses:
+        '200':
+          description: A list of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
+      responses:
+        '201':
+          description: The created order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /orders/{orderId}:
+    parameters:
+      - name: orderId
+        in: path
+        description: ID of the order
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get an order by ID
+      responses:
+        '200':
+          description: The order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      summary: Update an existing order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: The updated order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    delete:
+      summary: Delete an order
+      responses:
+        '204':
+          description: Order deleted successfully
+components:
+  schemas:
+    NewOrder:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: integer
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        quantity:
+          type: integer
