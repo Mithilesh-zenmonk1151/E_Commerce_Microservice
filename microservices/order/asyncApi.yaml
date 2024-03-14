@@ -1,0 +1,64 @@
+asyncapi: '2.0.0'
+info:
+  title: E-Commerce Order Service
+  version: '1.0.0'
+servers:
+  - url: 'amqp://localhost'
+    protocol: amqp
+    description: RabbitMQ server
+channels:
+  orderCreated:
+    description: Channel for notifying about new orders
+    publish:
+      summary: Notify about a new order
+      operationId: notifyOrderCreated
+      message:
+        name: OrderCreated
+        payload:
+          type: object
+          properties:
+            orderId:
+              type: string
+            customerId:
+              type: string
+            totalAmount:
+              type: number
+  getOrder:
+    description: Channel for getting order details
+    subscribe:
+      summary: Get order details by orderId
+      operationId: getOrderDetails
+      message:
+        name: GetOrderDetailsRequest
+        payload:
+          type: object
+          properties:
+            orderId:
+              type: string
+  updateOrderStatus:
+    description: Channel for updating order status
+    publish:
+      summary: Update order status by orderId
+      operationId: updateOrderStatus
+      message:
+        name: UpdateOrderStatusRequest
+        payload:
+          type: object
+          properties:
+            orderId:
+              type: string
+            newStatus:
+              type: string
+              enum: [processing, completed, cancelled]
+  deleteOrder:
+    description: Channel for deleting an order
+    publish:
+      summary: Delete an order by orderId
+      operationId: deleteOrder
+      message:
+        name: DeleteOrderRequest
+        payload:
+          type: object
+          properties:
+            orderId:
+              type: string
