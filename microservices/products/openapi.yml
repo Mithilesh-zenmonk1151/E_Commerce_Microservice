@@ -1,0 +1,203 @@
+openapi:  "3.0.0"
+
+info:
+  title: Product Service Api
+  version: 1.0.0
+  description: Api for managing orders
+servers:
+  - url: http://localhost:8080/api/v1  
+paths:
+  /products:
+    get: 
+      tags:
+         - "Products"
+      summary: Get all products
+      responses:
+        '200':
+           description: A list of products
+           content:
+             application/json:
+              schema: 
+                 type: array
+                 items:
+                   $ref:  "#/components/schemas/product"
+        '404':
+            description: 'Not Found' 
+            content: 
+              application/json:
+                schema: 
+                  type: object
+                  properties:
+                    error: 
+                      type: string 
+                      example: Product Not Found 
+        '500': 
+            description: Internal server error
+            content: 
+              application/json:
+               schema: 
+                type: object
+                properties:
+                  error: 
+                   type: string                 
+    post:
+      tags:
+       - "Products"
+      summary: Create new product
+      requestBody: 
+       required: true
+       content:
+        application/json: 
+          schema: 
+             $ref: "#/components/schemas/newProduct"
+      responses:
+        '201':
+          description: product created successfully
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/products" 
+        '400':
+           description: Fields are required
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+               schema: 
+                 type: object
+                 properties:
+                    error:
+                     type: string
+        '415':
+           description: unsupported media type   
+  /products/{productId} :        
+    put: 
+      tags:
+      - "Products"
+      summary: Update product 
+      requestBody:
+       required: true
+       content:
+          application/json:
+            schema: 
+               $ref: "#/components/schemas/products"
+      responses:
+        '200':
+          description: The product updated successfully
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/products" 
+        '404':
+          description: Product not found 
+          content:
+             application/json:
+                schema: 
+                   type: object
+                   properties:
+                     error: 
+                       type: string
+                       example: product not found 
+        '400':
+           description:  Invalid request payload
+           content:
+              application/json:
+                schema:
+                   type: object
+                   properties:
+                      error:
+                        type: string
+                        example: The provided productId is not defined
+        '500':   
+           description: Internal server error
+           content:
+              application/json:
+                schema:
+                   type: object
+                   properties:
+                      error: 
+                        type: string
+                        example: Internal server error 
+
+    delete: 
+      tags:
+        - "Products"
+      summary: Delete an product  
+      requestBody: 
+       required: true
+       content: 
+         application/json:
+           schema:
+            $ref: "#/components/schemas/products"
+      responses:
+         '200':
+           description: Product deleted  
+         '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: order not found  
+   
+components:
+  schemas:
+    product:  
+      type: object 
+      properties:
+        _id: 
+           type: string
+           description:  unique Id
+        productName:
+           type: string
+        images:
+           type: array
+        price: 
+           type: number
+        venderDetails:
+            type: string
+        category:
+            type: string
+        rating: 
+            type: array
+        review:
+            type: string
+        specifications: 
+            type: string     
+    newProduct:
+       type: object
+       properties:
+          productName: 
+             type: string
+          images:
+             type: array
+          price: 
+              type: number
+          category:
+              type: string
+          specifications:
+               type: string  
+       required:
+         - productName
+         - images
+         - price
+         - category
+           
+    products: 
+      allOf:
+        - type: object
+          properties:
+           id:
+            type: integer
+        - $ref: "#/components/schemas/newProduct"  
+      required:
+        - id    
+            
+         
+        
+
+
+

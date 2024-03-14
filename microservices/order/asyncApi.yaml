@@ -1,0 +1,109 @@
+asyncapi: 2.6.0
+
+info:
+  title: E-Commerce Service
+  version: "1.0"
+  description: E-Commerce Service
+  contact:
+    name: orders
+    email: qbc@c.in
+  license:
+    name: MIT
+    url: http://localhost:3000/api/v1
+
+channels:
+  E-Commerce.orders.order_request_created:
+    publish:
+      description: order created
+      summary: Inform about the new order request has been sent
+      operationId: E-Commerce.orders.order_request_created
+      message:
+        $ref: "#/components/messages/orderRequestCreated"
+  E-commerce.orders.user_ordered:
+   description: The topic on which order may be produced and consumed
+   subscribe:
+       description: Inform about user order
+       operationId: userOrdered
+       message:
+         $ref: '#/components/messages/userOrdered'
+       
+        
+components:
+  messages:
+    orderRequestCreated:
+      name: orderRequestCreated
+      title: order update event
+      summary: Inform about the order created
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: e4f35454-435e4-fdsgtrt-234
+            description: Unique ID for the object
+          createdAt:
+            type: string
+            format: date-time
+          orders:
+            $ref: "#/components/schemas/orderCreatedPayload"
+    userOrdered:
+      name: userOrdered
+      title: order update event
+      contentType: application/json
+      summary: Inform about a order updated 
+      payload: 
+        type: object
+        description: The user ordered payload object holds all the data related to order
+        properties: 
+           uuid: 
+             type: string
+             example:  yt567-hyu754-iy7578
+             description: unique ID for the object
+           createdAt:
+             type: string
+             format: date-time
+             description: Date that the order was
+           order: 
+             $ref: '#/components/schemas/orderCreatedPayload'    
+        
+  schemas:
+    orderCreatedPayload:
+      title: the order created object
+      type: object
+      description: The order object holds all tyhe data related to the creation of order
+      required:
+        - uuid
+          - productName
+          - images
+          - status
+          - description
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: unique Id for the Object
+        _id:
+          type: string
+          description: Internal Identifier for the object
+        productName:
+          type: string
+          description: product name
+        images:
+          type: string
+        status:
+          type: string
+          description: Current status of orders
+          enum:
+            - Processing
+            - Delivered
+            - Cancel
+        createdAt:
+          type: string
+          description: The created date
+          format: date-time
+        updatedAt:
+          type: string
+          description: updated date
+          format: date-time
+

@@ -43,8 +43,7 @@ paths:
                     error:
                       type: string
                       example: The provided email already exists
-        '404':
-          description: 'Not Found: This response is shown if the request for information is not there or it could not be imported'
+        
         '500':
           description: Internal server error
           content:
