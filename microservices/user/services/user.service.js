@@ -1,4 +1,4 @@
-const { authModel } = require("../models");
+const { userModel } = require("../models");
 const customError = require("../utils");
 exports.register = async (payload) => {
   try {
@@ -7,7 +7,7 @@ exports.register = async (payload) => {
     if (isExistUser) {
       throw new errorHandler("User all ready exist", 409);
     }
-    const user = authModel.create({
+    const user = userModel.create({
       fullName,
       email,
       password,
@@ -26,7 +26,7 @@ exports.login = async (payload) => {
         message: `Please Fill up All the Required Fields`,
       });
     }
-    const user = await authModel.findOne({ email });
+    const user = await userModel.findOne({ email });
 
     if (!user) {
       throw new customError("Invalid user", 401);
@@ -49,7 +49,7 @@ exports.updateUserProfile = async (payload) => {
     const { id } = payload.params;
     const { fullName, email } = payload.body;
 
-    const user = await authModel.findByIdAndUpdate(
+    const user = await userModel.findByIdAndUpdate(
       id,
       {
         fullName: fullName,
@@ -58,7 +58,7 @@ exports.updateUserProfile = async (payload) => {
       { new: true }
     );
     await user.save();
-    const updatedUser = await authModel.findById(id);
+    const updatedUser = await userModel.findById(id);
     return updatedUser;
   } catch (error) {
     throw error;

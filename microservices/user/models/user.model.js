@@ -13,7 +13,10 @@ const authSchema= new mongoose.Schema({
     password:{
         type:String,
         required:true
-    }
+    },
+    address:[
+        
+    ]
 
 },{timestamps:true})
 module.exports = mongoose.model("auth", authSchema)

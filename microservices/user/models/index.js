@@ -1,3 +1,3 @@
 module.exports={
-    authModel:require("./auth.model")
+    userModel:require("./user.model")
 }

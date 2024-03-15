@@ -1,0 +1,121 @@
+openapi: "3.0.0"
+info:
+  title: E-Commerce-Auth
+  version: "1.0.0"
+  description: User database .
+servers:
+  - url: http://localhost:8080
+paths:
+  /signup:
+    post:
+      tags:
+        - "Auth"
+      summary: Create a new user
+      description: Creates a new user
+      requestBody:
+        description: Request to create user
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authSchema"
+        required: true
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Success
+        "409":
+          description: Conflict error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The provided email already exists
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "400":
+          description: Fields are required
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Get user login
+      description: Returns user details and token
+      requestBody:
+        description: Request to login user
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authSchema"
+        required: true
+      responses:
+        "200":
+          description: User logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/authSchema"
+        "404":
+          description: "Not Found:  This response is shown if the request for information is not there or it could not be imported"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User Not found
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+        "400":
+          description: Invalid or incorrect credential
+components:
+  schemas:
+    authSchema:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        role:
+          type: string
+          format: enum
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation date and time
+          example: "2023-07-25T08:30:00Z"
+      required:
+        - email
+        - password
+        - role     
