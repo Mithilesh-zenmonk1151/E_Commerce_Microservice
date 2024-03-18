@@ -38,3 +38,24 @@ exports.login = async (req, res) => {
     }
   }
 };
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const response = await userService.updateUserProfile(req);
+    res.status(200).json(response);
+  } catch (error) {
+    console.log("update user error");
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+exports.deleteUser= async(req,res)=>{
+  try{
+    const response= await userService.deleteUser(req);
+    return res.status(200).json(response);
+
+  }
+  catch(error){
+    
+
+  }
+}

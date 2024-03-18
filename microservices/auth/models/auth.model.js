@@ -15,6 +15,10 @@ const authSchema= new mongoose.Schema({
         type: String,
         required:true,
         trim: true
+    },
+    role:{
+        type:String,
+        enum:["Admin","User","Vender"]
     }
 },{timestamps:true})
 module.exports= mongoose.model("auth",authSchema);

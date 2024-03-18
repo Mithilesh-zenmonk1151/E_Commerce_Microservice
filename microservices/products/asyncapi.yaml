@@ -25,6 +25,14 @@ channels:
       summary: The product details in deletion
       message:
         $ref: "#/components/messages/ProductAdded"
+  orders.product_added:
+    subscribe: 
+      description: New products vender added to the product
+      summary: New products added
+      operationId: productsAdded
+      message: 
+         $ref: '#/components/messages/productAdded'
+            
 components:
   messages:
     ProductAdded:
@@ -81,6 +89,26 @@ components:
             description: Date that the event was fired
           student:
             $ref: "#/components/schemas/ProductPayload"
+    productAdded: 
+      name: productAdded
+      title: Product update event
+      summary: Inform about the product update in the system
+      contentType: application/json
+      payload: 
+         type: object
+         properties: 
+         
+           uuid:
+             type: string
+             example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+             description: Unique ID for the Object
+           fired_at: 
+             type: string
+             format: date-time
+             description: date that event was fired
+           order:  
+             $ref: "#/components/schemas/"  
+
 
   schemas:
     ProductPayload:

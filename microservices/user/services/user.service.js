@@ -1,9 +1,10 @@
 const { userModel } = require("../models");
 const customError = require("../utils");
-const {consumerRabbitMq}= require("../rabbitMq")
+const consumeMessage = require("../worker/consumer.rabbit");
 exports.register = async (payload) => {
   try {
-    const { fullName, email, password } = payload.body;
+    // const { fullName, email, password } = consumeMessage("sinup_queue",message)
+
     const isExistUser = await authModel.findOne({ email });
     if (isExistUser) {
       throw new errorHandler("User all ready exist", 409);
@@ -43,7 +44,6 @@ exports.login = async (payload) => {
     throw error;
   }
 };
-
 exports.updateUserProfile = async (payload) => {
   try {
     console.log(payload.params);
@@ -58,9 +58,18 @@ exports.updateUserProfile = async (payload) => {
       },
       { new: true }
     );
-    await user.save();
+
     const updatedUser = await userModel.findById(id);
     return updatedUser;
+  } catch (error) {
+    throw error;
+  }
+};
+exports.deleteUser = async (payload) => {
+  try {
+    const userId = payload.params;
+    const deletedUser = await userModel.findByIdAndDelete(userId);
+    return deletedUser;
   } catch (error) {
     throw error;
   }

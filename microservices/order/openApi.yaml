@@ -224,6 +224,8 @@ components:
           type: string
         quantity:
           type: integer
+        totalPrice:
+          type: integer   
       required: 
        - ProductName
        - quantity

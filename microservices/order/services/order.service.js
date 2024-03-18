@@ -25,13 +25,13 @@ exports.getOrders = async (payload) => {
 exports.updateOrders = async (payload) => {
   try {
     const { orderId } = payload.params;
-    const { id } = payload.params;
     const { status } = payload.body;
     const updatedOrder = await orderModel.findByIdAndUpdate(
-      is,
+      orderId,
       { status: status },
       { new: true }
     );
+    return updatedOrder
   } catch (error) {
     throw error;
   }

@@ -12,6 +12,7 @@ const consumeMessage = async(queue, callback) =>{
             channel.ack(message);
           }
         });
+        
         console.log(`Started consuming messages from ${queue}`);
       } catch (error) {
         console.error('Error consuming message:', error.message);

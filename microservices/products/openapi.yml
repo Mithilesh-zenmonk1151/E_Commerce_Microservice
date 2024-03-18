@@ -178,6 +178,8 @@ components:
               type: number
           category:
               type: string
+          subCategory:
+              type: string    
           specifications:
                type: string  
        required:
@@ -185,6 +187,7 @@ components:
          - images
          - price
          - category
+         - subCategory
            
     products: 
       allOf:

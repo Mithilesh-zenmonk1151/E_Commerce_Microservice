@@ -16,15 +16,11 @@ exports.addRattingAndReview=async(payload)=>{
         ratting:ratting,
         review:review
     }) 
-
     return newRattingAndReview
-
-
    }
    catch(error){
    throw error
    }
-
 }
 exports.getRattingAndReview= async(payload)=>{
     try{
@@ -49,7 +45,6 @@ return updatedRattingAndReview;
 }   
 catch(error){
     throw error
-
 } 
 }
 exports.deleteRattingAndReview= async(payload)=>{
@@ -57,7 +52,6 @@ exports.deleteRattingAndReview= async(payload)=>{
         const {rattingAndReviewId}=payload.params;
     const deleteRattingAndReview= await rattingAndReviewModel.rattingAndReviewModel.findByIdAndDelete(rattingAndReviewId);
     return deleteRattingAndReview
-
     }
     catch(error){
         throw error;
