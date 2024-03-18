@@ -1,22 +1,17 @@
-// services/rabbitmqConsumer.js
-const amqp = require('amqplib');
+const amqplib = require('amqplib');
+const exchangeName = 'auth';
 
-const consumeMessage = async(queue, callback) =>{
-    try {
-        const connection = await amqp.connect('amqp://localhost');
-        const channel = await connection.createChannel();
-        await channel.assertQueue(queue, { durable: false });
-        channel.consume(queue, (message) => {
-          if (message) {
-            callback(message.content.toString());
-            channel.ack(message);
-          }
-        });
-        
-        console.log(`Started consuming messages from ${queue}`);
-      } catch (error) {
-        console.error('Error consuming message:', error.message);
-      }
+const receiveMsg = async() => {
+    const connection = await amqplib.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+    await channel.assertExchange(exchangeName, 'fanout', {durable: false});
+    const q = await channel.assertQueue('', {exclusive: true});
+    console.log("queue name : ", q.queue);
+    channel.bindQueue(q.queue, exchangeName, ''); // routing key
+    channel.consume(q.queue, msg => {
+        if(msg.content) console.log(" the message is : ", msg.content.toString());
+
+    })
 }
 
-module.exports = { consumeMessage };
+receiveMsg();
