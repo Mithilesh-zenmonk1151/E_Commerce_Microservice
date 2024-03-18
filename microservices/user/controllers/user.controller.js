@@ -1,7 +1,7 @@
-const { authService } = require("../services");
+const { userService } = require("../services");
 exports.register = async (req, res) => {
   try {
-    const response = await authService.register(req);
+    const response = await userService.register(req);
     console.log(response);
     return res.status(200).json({
       message: "Signup successfull",
@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
   console.log("respomnse login controller");
   try {
     console.log("user login");
-    const response = await authService.login(req, res);
+    const response = await userService.login(req, res);
     console.log("response", response);
     if (response.status === 400) {
       return res.status(400).json({

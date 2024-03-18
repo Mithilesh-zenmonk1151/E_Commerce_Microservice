@@ -1,5 +1,5 @@
 {
-  "name": "auth",
+  "name": "cart",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "amqplib": "^0.10.3",
-    "dotenv": "^16.4.5",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "express": "^4.18.3",
-    "mongoose": "^8.2.2",
+    "mongoose": "^8.2.1",
     "nodemon": "^3.1.0"
-=======
-    "express": "^4.18.3",
-    "mongoose": "^8.2.1"
->>>>>>> 54a239f95d688b78b0c589626a5e8f8d556b68ee
   }
 }
