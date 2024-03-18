@@ -1,5 +1,6 @@
 const { authModel } = require("../models");
 const customError = require("../utils");
+const {consumerRabbitMq}= require("../rabbitMq")
 exports.register = async (payload) => {
   try {
     const { fullName, email, password } = payload.body;
