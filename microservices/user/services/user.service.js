@@ -9,6 +9,7 @@ exports.register = async (payload) => {
     if (isExistUser) {
       throw new errorHandler("User all ready exist", 409);
     }
+    const message= consumeMessage({exchangeName:"Auth",message})
     const user = userModel.create({
       fullName,
       email,

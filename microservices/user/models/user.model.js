@@ -1,9 +1,8 @@
 const mongoose= require("mongoose")
-<<<<<<< HEAD
+
 const userSchema= new mongoose.Schema({
-=======
-const authSchema= new mongoose.Schema({
->>>>>>> 54a239f95d688b78b0c589626a5e8f8d556b68ee
+
+
 
     fullName:{
         type:String,
@@ -18,7 +17,6 @@ const authSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-<<<<<<< HEAD
     role:{
         type: String,
         enum:["Admin", "Customer","Vender","DeliveryPartner"],
@@ -54,12 +52,7 @@ const authSchema= new mongoose.Schema({
    
 
 },{timestamps:true})
-module.exports = mongoose.model("auth", userSchema)
-=======
-    address:[
-        
-    ]
+module.exports = mongoose.model("user", userSchema)
 
-},{timestamps:true})
-module.exports = mongoose.model("auth", authSchema)
->>>>>>> 54a239f95d688b78b0c589626a5e8f8d556b68ee
+
+

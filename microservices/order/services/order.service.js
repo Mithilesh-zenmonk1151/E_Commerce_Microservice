@@ -1,14 +1,20 @@
 const orderModel = require("../models");
+const Producer = require("../worker/producer.worker");
+const producer = new Producer();
 exports.createOrders = async (payload) => {
   try {
-    const { productName, image, status, description } = payload;
+    const { productId } = payload.params;
+    const message = await producer.sentMsg({
+      exchangeName: "order-product",
+      productId: productId,
+    });
     const orders = await orderModel.create({
       productName: productName,
       image: image,
       status: status,
       description: description,
     });
-    return orders;
+    return { orders, message };
   } catch (error) {
     throw error;
   }
@@ -31,7 +37,7 @@ exports.updateOrders = async (payload) => {
       { status: status },
       { new: true }
     );
-    return updatedOrder
+    return updatedOrder;
   } catch (error) {
     throw error;
   }

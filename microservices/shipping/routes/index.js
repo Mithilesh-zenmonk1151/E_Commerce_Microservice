@@ -1,3 +1,3 @@
 const router = require("express").Router();
-router.use("/users", require("./user.route"));
+router.use("/shipping", require("./shipping.route"));
 module.exports = router;

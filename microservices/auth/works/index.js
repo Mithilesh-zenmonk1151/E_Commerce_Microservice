@@ -9,24 +9,19 @@ const {
   MSG_QUEUE_URL,
 } = require("../config/rabbitMq");
 
-//Utility functions
-module.exports.GenerateSalt = async () => {
+exports.GenerateSalt = async () => {
   return await bcrypt.genSalt();
 };
 
-module.exports.GeneratePassword = async (password, salt) => {
+exports.GeneratePassword = async (password, salt) => {
   return await bcrypt.hash(password, salt);
 };
 
-module.exports.ValidatePassword = async (
-  enteredPassword,
-  savedPassword,
-  salt
-) => {
+exports.ValidatePassword = async (enteredPassword, savedPassword, salt) => {
   return (await this.GeneratePassword(enteredPassword, salt)) === savedPassword;
 };
 
-module.exports.GenerateSignature = async (payload) => {
+exports.GenerateSignature = async (payload) => {
   try {
     return await jwt.sign(payload, APP_SECRET, { expiresIn: "30d" });
   } catch (error) {
@@ -35,7 +30,7 @@ module.exports.GenerateSignature = async (payload) => {
   }
 };
 
-module.exports.ValidateSignature = async (req) => {
+exports.ValidateSignature = async (req) => {
   try {
     const signature = req.get("Authorization");
     console.log(signature);
@@ -48,7 +43,7 @@ module.exports.ValidateSignature = async (req) => {
   }
 };
 
-module.exports.FormateData = (data) => {
+exports.FormateData = (data) => {
   if (data) {
     return { data };
   } else {
@@ -56,9 +51,7 @@ module.exports.FormateData = (data) => {
   }
 };
 
-//Message Broker
-
-module.exports.CreateChannel = async () => {
+exports.CreateChannel = async () => {
   try {
     const connection = await amqplib.connect(MSG_QUEUE_URL);
     const channel = await connection.createChannel();
@@ -69,12 +62,11 @@ module.exports.CreateChannel = async () => {
   }
 };
 
-module.exports.PublishMessage = (channel, service, msg) => {
+exports.PublishMessage = (channel, service, msg) => {
   channel.publish(EXCHANGE_NAME, service, Buffer.from(msg));
   console.log("Sent: ", msg);
 };
-
-module.exports.SubscribeMessage = async (channel, service) => {
+exports.SubscribeMessage = async (channel, service) => {
   await channel.assertExchange(EXCHANGE_NAME, "direct", { durable: true });
   const q = await channel.assertQueue("", { exclusive: true });
   console.log(` Waiting for messages in queue: ${q.queue}`);

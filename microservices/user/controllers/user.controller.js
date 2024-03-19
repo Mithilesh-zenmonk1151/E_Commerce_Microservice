@@ -1,5 +1,6 @@
 const { userService } = require("../services");
-exports.register = async (req, res) => {
+const CustomError= require("../utils/error")
+exports.signup = async (req, res) => {
   try {
     const response = await userService.register(req);
     console.log(response);
@@ -55,6 +56,8 @@ exports.deleteUser= async(req,res)=>{
 
   }
   catch(error){
+    CustomError("User not found",404)
+
     
 
   }
