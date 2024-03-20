@@ -18,10 +18,11 @@ const shippingSchema= new mongoose.Schema({
         enum:["packed","picked","orderPlaced"],
         default:"packed"
     },
-    cityName:{
+    pointsName:{
         type: Array
     },
-    currentCityName:{
+    currentPointName:{
+        type: String
 
     }
 },{timestamps:true})

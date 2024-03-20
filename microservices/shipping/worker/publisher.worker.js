@@ -2,6 +2,7 @@ const uuid = require("uuid");
 const amqp = require("amqplib");
 const exchangeName = process.env.RABBIT_PUB_EXCHANGE_NAME;
 const exchangeType = process.env.RABBIT_EXCHANGE_TYPE;
+
 exports.sendMsg = async (routing_key, signature, msg) => {
   const connection = await amqp.connect("amqp://localhost:5672");
   const channel = await connection.createChannel();

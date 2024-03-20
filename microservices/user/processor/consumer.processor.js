@@ -1,9 +1,9 @@
 const { userService } = require('../services');
 
-exports.createUser = async (payload) => {
+exports.register  = async (payload) => {
   const {userDetails = {}} = payload
   try {
-    const response = await userService.createUser(userDetails);
+    const response = await userService.register(userDetails);
     if (!response) {
       throw new Error('User could not be created.', userDetails);
     }

@@ -1,30 +1,28 @@
-const amqp = require('amqplib');
-const exchangeName = 'authExchange';
-
-class Producer {
-    channel;
-
-    async createChannel() {
-        try {
-            const connection = await amqp.connect('amqp://localhost');
-            this.channel = await connection.createChannel();   
-        } catch (error) {
-            console.log("channel not created", error);
-        }
-    }
-    async sentMsg({exchangeName,fullName, email, password,role}){
-        try {
-            if (!this.channel) {
-                await this.createChannel()
-            }
-            await this.channel.assertExchange(exchangeName, 'fanout', {durable: false});
-            const msg = {fullName, email, password,role};
-            this.channel.publish(exchangeName, '', Buffer.from(JSON.stringify(msg)));
-            console.log("sent", msg);
-        } catch (error) {
-            console.log(error, "connection not created..");
-        }
-    }
-
-}
-module.exports = Producer;
+const uuid = require("uuid");
+const amqp = require("amqplib");
+const exchangeName = process.env.RABBIT_PUB_EXCHANGE_NAME;
+const exchangeType = process.env.RABBIT_EXCHANGE_TYPE;
+exports.sendMsg = async (routing_key, signature, msg) => {
+  const connection = await amqp.connect("amqp://localhost:5672");
+  const channel = await connection.createChannel();
+  await channel.assertExchange(exchangeName, exchangeType, { durable: true });
+  const properties = {
+    type: signature,
+  };
+  const publishDetails = {
+    uuid: uuid.v1(),
+    fired_at: new Date(),
+    user_details: msg,
+  };
+  console.log("PUbbbbbblishhhhhh", publishDetails);
+  await channel.publish(
+    exchangeName,
+    routing_key,
+    Buffer.from(JSON.stringify(publishDetails)),
+    properties,
+    { persistant: true }
+  );
+  console.log(
+    `This message is sent to exchange ${process.env.RABBIT_PUB_EXCHANGE_NAME}`
+  );
+};

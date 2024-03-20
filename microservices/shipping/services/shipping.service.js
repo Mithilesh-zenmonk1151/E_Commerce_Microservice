@@ -31,15 +31,15 @@ exports.getShippingDetails = async (payload) => {
 exports.updateShippingDetails = async (payload) => {
   try {
     const { shippingId } = payload.params;
-    const { ArrivingBy, shippingStatus, cityName, currentCityName } =
+    const { ArrivingBy, shippingStatus,  pointsName, currentPointName } =
       payload.body;
     const updatedShippingDetails = await shippingModel.findByIdAndUpdate(
       shippingId,
       {
         ArrivingBy: ArrivingBy,
         shippingStatus: shippingStatus,
-        cityName: cityName,
-        currentCityName: currentCityName,
+        pointsName:  pointsName,
+        currentPointName: currentPointName,
       },
       { new: true }
     );

@@ -1,7 +1,6 @@
 const { authModel } = require("../models");
 const CustomError = require("../utils/error");
-const Producer = require("../work/producer.work");
-const producer = new Producer();
+const {sendMsg}= require("../work/producer.work")
 const bcrypt = require("bcrypt");
 
 exports.signup = async (payload) => {
@@ -23,14 +22,20 @@ exports.signup = async (payload) => {
       password: hashedPassword,
       role: role,
     });
-    const message = await producer.sentMsg({
-      exchangeName: "Auth",
+    const user = new authModel({
       fullName: fullName,
       email: email,
       password: hashedPassword,
       role: role,
     });
-    return { message, auth };
+    await user.save();
+    await sendMsg(
+      process.env.RABBIT_PUBLISH_USER_DETAILS, 
+      process.env.RABBIT_PUB_USER_DETAILS_SIGN,
+      user
+      )
+    return user;
+    
   } catch (error) {
     console.log("error :- ", error);
   }
