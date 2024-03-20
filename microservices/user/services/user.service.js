@@ -1,20 +1,29 @@
 const { userModel } = require("../models");
 const customError = require("../utils");
-const consumeMessage = require("../worker/consumer.rabbit");
+const {sendMsg}= require("../worker/publisher.rabbit")
+const consumeMessage = require("../worker/consumer.worker");
 exports.register = async (payload) => {
   try {
     // const { fullName, email, password } = consumeMessage("sinup_queue",message)
 
-    const isExistUser = await authModel.findOne({ email });
+    const isExistUser = await userModel.findOne({ email });
     if (isExistUser) {
       throw new errorHandler("User all ready exist", 409);
     }
     const message= consumeMessage({exchangeName:"Auth",message})
-    const user = userModel.create({
+    const user = await new userModel({
       fullName,
       email,
       password,
+      role,
+      status: "Active"
     });
+    user.save();
+    await sendMsg(
+      process.env.RABBIT_PUBLISH_USER_DETAILS, 
+      process.env.RABBIT_PUB_USER_DETAILS_SIGN,
+      user
+      )
     return user;
   } catch (error) {
     throw error;
