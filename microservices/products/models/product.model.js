@@ -20,6 +20,10 @@ const productSchema= new mongoose.Schema({
     description:{
         type: String
     },
+    stock:{
+        type:Number
+
+    },
     images:{
         type:Array
     },

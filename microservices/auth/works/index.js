@@ -7,7 +7,7 @@ const {
   EXCHANGE_NAME,
   SHOPPING_SERVICE,
   MSG_QUEUE_URL,
-} = require("../config/rabbitMq");
+} = require("../config/rabbit");
 
 exports.GenerateSalt = async () => {
   return await bcrypt.genSalt();

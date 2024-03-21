@@ -4,7 +4,16 @@ const orderSchema= new mongoose.Schema({
         type:String,
         trim:true
     },
-    
+    productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
    
     image:{
         type:String
