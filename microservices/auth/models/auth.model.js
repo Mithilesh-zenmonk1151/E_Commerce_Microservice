@@ -18,8 +18,13 @@ const authSchema= new mongoose.Schema({
     },
     role:{
         type:String,
-        enum:["Admin","User","Vender","DeliveryManager"],
-        default: "User"
+        enum:["Admin","Customer","Vender","DeliveryManager"],
+        default: "Customer"
+    },
+    status: {
+        type: String,
+        enum: ["Active", "Deactive","Pending"],
+        default: "Pending"
     }
 },{timestamps:true})
 module.exports= mongoose.model("auth",authSchema);

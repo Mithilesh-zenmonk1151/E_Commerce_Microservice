@@ -1,10 +1,9 @@
-const { userService } = require('../services');
+const { authService } = require('../services');
 
 const register  = async (payload) => {
-  // const {userDetails = {}} = payload
   console.log(payload)
   try {
-    const response = await userService.register(payload);
+    const response = await authService.register(payload);
     if (!response) {
       throw new Error('User could not be created.', payload);
     }
@@ -16,7 +15,7 @@ const register  = async (payload) => {
 };
 
 module.exports = {
-  register,
+    register,
   
 };
 

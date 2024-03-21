@@ -1,7 +1,7 @@
 const amqp = require("amqplib");
 
-const { userProcessor } = require("../processor/consumer.processor");
-// const { createUser } = userProcessor
+const { register } = require("../processor/consumer.processor");
+// const  {register}  =  userProcessor;
 
 const exchangeName = process.env.RABBIT_SUB_EXCHANGE_NAME;
 const exchangeType = process.env.RABBIT_EXCHANGE_TYPE;
@@ -9,7 +9,7 @@ const routing_key = process.env.RABBIT_SUB_ROUTING_KEY;
 const queueName = process.env.RABBIT_QUEUE_NAME;
 
 const processors = {
-  [process.env.RABBIT_SUB_USER_DETAILS_SIGN]: userProcessor,
+  [process.env.RABBIT_SUB_USER_DETAILS_SIGN]: register
   // [process.env.RABBIT_SUB_EDIT_PASSWORD_SIGN]:
 };
 
@@ -21,7 +21,7 @@ exports.recieveMsg = async () => {
     await channel.assertExchange(exchangeName, exchangeType);
     const q = await channel.assertQueue(queueName, { durable: true });
 
-    await channel.bindQueue(q?.queue, exchangeName, "");
+    await channel.bindQueue(q?.queue, exchangeName, "auth");
 
     console.log(`Waiting for messages in queue: ${q.queue}`);
     channel.consume(q?.queue, async (msg) => {
@@ -42,7 +42,7 @@ exports.recieveMsg = async () => {
       if (handle_processor) {
         try {
           const data = JSON.parse(msg?.content?.toString());
-          // console.log(data);
+          console.log(data);
           await handle_processor(data);
           channel.ack(msg);
         } catch (error) {

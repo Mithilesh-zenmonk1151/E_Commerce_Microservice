@@ -1,9 +1,9 @@
 const {authService}= require("../services");
 const CustomError= require("../utils/error");
-exports.signup=async(req,res)=>{
+exports.register=async(req,res)=>{
     try{
         
-        const user = await authService.signup(req);
+        const user = await authService.register(req);
         res.status(201).json(user)
 
     }

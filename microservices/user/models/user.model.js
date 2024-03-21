@@ -23,6 +23,10 @@ const userSchema= new mongoose.Schema({
         default:"Customer"
         
     },
+    userId:{
+        type:String ,
+        required: true
+    },
     address:[
         {
             area: {
@@ -51,8 +55,8 @@ const userSchema= new mongoose.Schema({
     }],
     status: {
         type: String,
-        enum: ["Active", "Deactive"],
-        default: "Active"
+        enum: ["Active", "Deactive","Pending"],
+        default: "Pending"
     }
    
 

@@ -1,36 +1,35 @@
-const uuid = require('uuid');
+const amqp = require('amqplib')
+const config = require('../config/rabbit')
 
-const exchangeName = process.env.RABBIT_PUB_EXCHANGE_NAME
-const exchangeType = process.env.RABBIT_EXCHANGE_TYPE
+class Producer {
+    channel;
 
+    async createChannel() {
+        const connection = await amqp.connect(config.rabbitMQ.url);
+        this.channel = await connection.createChannel();
+    }
 
-exports.sendMsg = async (routing_key, signature, msg) => {
-    const connection = await global.rabbit_mq_connection;
-    const channel = await connection.createChannel();
+    async publishMessage(routingKey, message, signature) {
+        if (!this.channel) {
+            await this.createChannel()
+        }
+        const exchangeName = config.rabbitMQ.exchangeName;
+        await this.channel.assertExchange(exchangeName, "direct");
+        const properties = { type: signature };
+        const logDetails = {
+            key: routingKey,
+            message: message,
+            dateTime: new Date(),
+        }
+        await this.channel.publish(
+            exchangeName,
+            routingKey,
+            Buffer.from(JSON.stringify(logDetails)),
+            properties
+        );
 
-    await channel.assertExchange(exchangeName, exchangeType, {durable: true});
+        console.log(`the message ${message} is sent to exchange ${exchangeName} and routing key is ${routingKey}`);
+    }
 
-    const properties = {
-      type: signature
-    };
-
-    const publishDetails = {
-        uuid: uuid.v1(),
-        fired_at: new Date(),
-        user_details: msg
-      };
-
-      console.log(publishDetails)
-
-    await channel.publish(
-        exchangeName,  
-        routing_key, 
-        Buffer.from(JSON.stringify(publishDetails)),
-        properties,
-        {persistant: true}
-    );
-    console.log(`This message is sent to exchange ${process.env.RABBIT_PUB_EXCHANGE_NAME}`);
-    
-  }
-
-  
+}
+module.exports = Producer;

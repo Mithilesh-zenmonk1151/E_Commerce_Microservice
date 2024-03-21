@@ -1,29 +1,47 @@
 const { userModel } = require("../models");
 const customError = require("../utils");
-const {sendMsg}= require("../worker/publisher.worker")
+const Producer= require("../worker/publisher.worker")
+const producer = new Producer();
+// const {sendMsg}= require("../worker/publisher.worker")
 const consumeMessage = require("../worker/consumer.worker");
 exports.register = async (payload) => {
   try {
     // const { fullName, email, password } = consumeMessage("sinup_queue",message)
+console.log("😊😊😊😊",payload)
+// const message=await consumeMessage({exchangeName:"Auth",message})
+
+console.log("paylod.fullName 😊😊",payload.message.fullName);
+console.log("paylod.fullName 😊😊",payload.message.email);
+console.log("paylod.fullName 😊😊",payload.message.email);
+const consumeMsg= await payload.message;
+ const fullName=await  consumeMsg?.fullName;
+ const email= await consumeMsg?.email;
+ const password=await consumeMsg?.password;
+ const role= await consumeMsg?.role;
+ const userId= await consumeMsg?._id;
 
     const isExistUser = await userModel.findOne({ email });
     if (isExistUser) {
       throw new errorHandler("User all ready exist", 409);
     }
-    const message= consumeMessage({exchangeName:"Auth",message})
     const user =  new userModel({
-      fullName,
-      email,
-      password,
-      role,
+      fullName:fullName,
+      email:email,
+      password : password,
+      role:role,
+      userId:userId,
       status: "Active"
     });
+    console.log("response", user);
     await user.save();
-    await sendMsg(
-      process.env.RABBIT_PUBLISH_USER_DETAILS, 
-      process.env.RABBIT_PUB_USER_DETAILS_SIGN,
-      user
-      )
+    // await sendMsg(
+    //   process.env.RABBIT_PUBLISH_USER_DETAILS, 
+    //   process.env.RABBIT_PUB_USER_DETAILS_SIGN,
+    //   user
+    //   )
+    const routingKey = "user"
+    const signature = "user.user_created"
+    await producer.publishMessage(routingKey,user,signature );
     return user;
   } catch (error) {
     throw error;
