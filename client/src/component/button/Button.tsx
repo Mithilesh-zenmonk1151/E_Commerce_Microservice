@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Stack from "@mui/material/Stack";
-import { Button, SvgIconTypeMap, Typography } from "@mui/material";
+import { Box, Button, SvgIconTypeMap, Typography } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 type ButtonProps = {
   text?: string;
@@ -11,17 +11,32 @@ type ButtonProps = {
   customClasses?: string,
   type?: 'submit',
   src?: React.ReactElement,
-  alt?: string
+  alt?: string,
+  bgColor?:string 
 };
 
 function Buttons(props: ButtonProps) {
-    const {text,handleOnClick,src,customClasses,alt,type}=props
+    const {text,handleOnClick,src,customClasses,bgColor,type}=props
   console.log("props: ", props);
   return (
     <Stack direction="row" spacing={2}>
-      <Button className={customClasses} onClick={handleOnClick} type={type}>
+      <Button className={customClasses}  onClick={handleOnClick} type={type}>
        {/* <img src={src} alt={alt} />yuty {text} */}
-       {src} {text}
+       <Box sx={{
+        display:"flex",
+        textTransform:"none",
+        color:"black"
+       }}>
+       <Box>
+       {src}
+       </Box>
+        <Typography>
+        {text}
+
+        </Typography>
+
+       </Box>
+        
       </Button>
     </Stack>
   );

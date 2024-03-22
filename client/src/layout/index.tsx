@@ -6,6 +6,7 @@ function index() {
     return (
      <Paper>
         <HeaderLayout/>
+        <HeaderLayout/>
      </Paper>
     )
 }

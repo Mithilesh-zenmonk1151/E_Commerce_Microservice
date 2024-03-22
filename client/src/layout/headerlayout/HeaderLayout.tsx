@@ -1,14 +1,32 @@
 import { Box, Stack } from '@mui/material'
 import React from 'react'
-import easeLogo from "../../assets/easelogoo.jpg"
+import SearchBar from '../../component/searchBar/SearchBar'
+import Calender from '../../component/calender/Calender'
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Avatars from '../../component/avatar/AvatarI';
 function HeaderLayout() {
     return (
-        <Stack>
+        <Box sx={{
+            display:"flex",
+            flexDirection:"row",
+            justifyContent:"space-around",
+            width:"100%",
+            bgcolor:"#ffffff",
+            height:"50px",
+        }}>
             <Box>
-            <img src={easeLogo} alt='easeLogo'/>
+                <SearchBar/>
+            </Box>
+            <Box sx={{
+                display:"flex",
+                gap:"60px"
+            }}>
+                <Calender/>
+                <NotificationsIcon/>
+                <Avatars/>
             </Box>
 
-        </Stack>
+        </Box>
     )
 }
 

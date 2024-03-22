@@ -12,7 +12,9 @@ function Calender(props: DateProps) {
     return (
        <Stack sx={{
         display:"flex",
-        position:"relative",
+        flexDirection:"row",
+       
+        
        
       
         
@@ -21,19 +23,20 @@ function Calender(props: DateProps) {
         <CalendarMonthIcon />
        <Box sx={{
         display:"flex",
-        position:"absolute",
         left:"40px",
         fontFamily: 'Raleway, Arial',
+        mt:"6px"
+       
 
        }}>
-       <Typography>
-            {day},
+       <Typography sx={{ fontSize:"10px"}}>
+          Monday{day},
         </Typography>
-        <Typography>
-            {date},
+        <Typography  sx={{ fontSize:"10px"}}>
+            26th{date},
         </Typography>
-        <Typography>
-            {month}
+        <Typography  sx={{ fontSize:"10px"}}>
+            March{month}
         </Typography>
        </Box>
 

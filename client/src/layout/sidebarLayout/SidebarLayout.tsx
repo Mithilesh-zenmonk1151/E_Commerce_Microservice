@@ -11,12 +11,22 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import AddIcon from '@mui/icons-material/Add';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import SettingsIcon from '@mui/icons-material/Settings';
 function SidebarLayout() {
   return (
-    <Stack>
+    <Stack sx={{
+      width:"20%",
+      gap:"50px",
+      bgcolor:"#ffffff"
+       
+
+    }}>
       <Box sx={{
         display:"flex",
-        gap:"10px"
+        gap:"10px",
       }}>
      
        
@@ -29,13 +39,28 @@ function SidebarLayout() {
         }}>Flight Ease</Typography>
       </Box>
        <Box sx={{
+        width:"100%"
         
        }}>
-        <Buttons src={<DashboardIcon/>} text="fwerw"/>
+        <Box sx={{
+          display:"flex",
+          flexDirection:"column",
+          justifyContent:"center",
+          position:"relative",
+          left:"30px",
+          gap:"20px"
+           
+        }}>
+        <Buttons src={<DashboardIcon/>} text="Dashboard"/>
         {/* <Buttons/>
         <Buttons/> */}
         <DropDown src={<AssignmentTurnedInIcon/>} text="All tickets" option1Logo={<OpenInNewIcon/>} option2Logo={<EventAvailableIcon/>} option3Logo={<HighlightOffIcon/>} option1="hello" option2="hello2" option3="hee3" />
         <DropDown text="Chatbots" src={<ChatBubbleOutlineIcon/>}  option1="Create a Chatbot" option1Logo={<AddIcon/>} />
+        <Buttons text="Orders" src={<ListAltIcon/>}/>
+        <Buttons  text="Customers" src={<SupervisorAccountIcon/>}/>
+        <Buttons src={<SettingsIcon/>} text="Settings"/>
+        <Buttons src={<LogoutIcon/>} text="Log out"/>
+        </Box>
        </Box>
     </Stack>
   );

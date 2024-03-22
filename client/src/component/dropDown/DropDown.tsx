@@ -83,10 +83,14 @@ export default function DropDown(props: DropDown) {
         aria-controls={open ? 'demo-customized-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        variant="contained"
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        sx={{
+          textTransform:"none",
+          color:"black",
+          position:"relative"
+        }}
       >
         {src}
        {text}
@@ -99,6 +103,9 @@ export default function DropDown(props: DropDown) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{
+          position:"absolute"
+        }}
       >
         <MenuItem onClick={handleClose} disableRipple>
          {option1Logo}
