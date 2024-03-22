@@ -1,0 +1,39 @@
+.profile-avatar{
+    display: flex !important;
+    flex-direction: row-reverse !important;
+    width: 10% !important;
+    margin-left: 52px !important;
+    gap: 10px !important;
+    width: 100%;
+    padding: 20px !important;
+
+
+}
+.change-btn{
+    background: #4f80e1 !important;
+    border-radius: 5px !important;
+    width: 98.67px !important;
+    height: 37px !important;
+    color: #ffffff!important;
+    
+}
+.delete-btn{
+    border: 1px solid #4f80e1 !important;
+    width:  98.67px !important;
+    height:37px  !important;
+    border-radius: 10px !important;
+    color: #4f80e1 !important;
+}
+.profile-inputs{
+    height: 56px !important;
+    width: 299px !important;
+    font-size: 14px !important;
+    
+}
+.typo-graphy{
+    color: #ffffff;
+}
+.typo-delete{
+    color: #4f80e1 ;
+
+}

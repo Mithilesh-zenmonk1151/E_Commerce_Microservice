@@ -12,11 +12,12 @@ type ButtonProps = {
   type?: 'submit',
   src?: React.ReactElement,
   alt?: string,
-  bgColor?:string 
+  bgColor?:string ,
+  typographyCustomClass?:string
 };
 
 function Buttons(props: ButtonProps) {
-    const {text,handleOnClick,src,customClasses,bgColor,type}=props
+    const {typographyCustomClass,text,handleOnClick,src,customClasses,bgColor,type}=props
   console.log("props: ", props);
   return (
     <Stack direction="row" spacing={2}>
@@ -30,7 +31,10 @@ function Buttons(props: ButtonProps) {
        <Box>
        {src}
        </Box>
-        <Typography>
+        <Typography sx={{
+          fontFamily:"Inter",
+          
+        }} className={typographyCustomClass}>
         {text}
 
         </Typography>

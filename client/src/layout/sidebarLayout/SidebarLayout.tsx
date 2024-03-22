@@ -20,13 +20,17 @@ function SidebarLayout() {
     <Stack sx={{
       width:"20%",
       gap:"50px",
-      bgcolor:"#ffffff"
+      bgcolor:"#ffffff",
+      paddingLeft:"45px"
        
 
     }}>
       <Box sx={{
         display:"flex",
         gap:"10px",
+        marginLeft:"38px"
+       
+
       }}>
      
        
@@ -45,10 +49,11 @@ function SidebarLayout() {
         <Box sx={{
           display:"flex",
           flexDirection:"column",
-          justifyContent:"center",
           position:"relative",
           left:"30px",
-          gap:"20px"
+          gap:"20px",
+          width:"268px",
+
            
         }}>
         <Buttons src={<DashboardIcon/>} text="Dashboard"/>

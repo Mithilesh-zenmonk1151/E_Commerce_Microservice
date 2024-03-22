@@ -25,17 +25,21 @@ function Calender(props: DateProps) {
         display:"flex",
         left:"40px",
         fontFamily: 'Raleway, Arial',
-        mt:"6px"
+        mt:"4px",
+        
        
 
        }}>
-       <Typography sx={{ fontSize:"10px"}}>
+       <Typography sx={{ fontSize:"15px",
+    fontWeight:"550"}}>
           Monday{day},
         </Typography>
-        <Typography  sx={{ fontSize:"10px"}}>
+        <Typography  sx={{ fontSize:"15px",
+    fontWeight:"550"}}>
             26th{date},
         </Typography>
-        <Typography  sx={{ fontSize:"10px"}}>
+        <Typography  sx={{ fontSize:"15px",
+    fontWeight:"550"}}>
             March{month}
         </Typography>
        </Box>

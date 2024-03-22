@@ -15,7 +15,7 @@ function Dashboard() {
             flexDirection:"row",
             mt:"20px",
             bgcolor:"#f6f8ff",
-            height:"100vh"
+            height:"105vh"
 
         }}>
             <SidebarLayout/>
@@ -35,20 +35,26 @@ function Dashboard() {
                 mt:"20px",
                 display:"flex",
                 justifyContent:"space-between",
-                margin:"20px"
+                margin:"20px",
+                padding:"25px",
+                width:"90%",
+                fontSize:"28px"
             }}>
-                <TypographyCompo heading='Setting' body='Manage your account settings'/>
+                <TypographyCompo heading='Settings' body='Manage your account settings'  customClassName='setting-manage'/>
                 <Box sx={{
                     display:"flex",
+                    gap:"16px"
 
                 }}>
-                    <Buttons text='Save change' customClasses='save-btn' />
-                    <Buttons text='Cancel' customClasses='cancel-btn'/>
+                    <Buttons text='Save change' customClasses='save-btn' typographyCustomClass='typo-save' />
+                    <Buttons text='Cancel' customClasses='cancel-btn' typographyCustomClass='typo-cancel'/>
                 </Box>
             </Box>
-            <Box>
+            <Box sx={{
+              
+
+            }}>
             <DashBoardHero/>
-            <TextFieldCompo/>
             </Box>
 
             </Box>

@@ -4,24 +4,29 @@ import React from 'react'
 type HeadingProp={
     heading?: string,
     body?:String,
-    variant?: 'h4'|'p'
+    variant?: 'h4'|'p',
+    customClassName?: string
 }
 
 function TypographyCompo(props:  HeadingProp) {
-    const {heading, body}= props
+    const {heading, body,customClassName}= props
   return (
-    <Box>
-        <Typography variant='h6' sx={{
-          fontSize:"18px",
+    <Box sx={{
+      fontFamily:"Poppins",
+
+    }}>
+        <Typography variant='h6' className={customClassName} sx={{
+          fontSize:"28px",
           fontWeight:"900",
-          fontFamily:"sans-serif"
+          fontFamily:"Poppins"
         }}>
             {heading}
         </Typography>
         <Typography sx={{
           fontSize:"13px",
-          fontFamily:"sans-serif",
-          fontWeight:"700"
+          fontWeight:"700",
+          paddingTop:"13px"
+          
         }} >
           {body}
         </Typography>

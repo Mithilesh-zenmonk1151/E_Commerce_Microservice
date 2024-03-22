@@ -22,7 +22,7 @@ function HeaderLayout() {
                 gap:"60px"
             }}>
                 <Calender/>
-                <NotificationsIcon/>
+                <NotificationsIcon height={"42px"}/>
                 <Avatars/>
             </Box>
 
