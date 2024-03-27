@@ -1,0 +1,18 @@
+.insta-logo{
+    height: 70px;
+    width: 130px;
+}
+.searchBar-class{
+    display: flex !important;
+    flex-direction: row-reverse !important;
+    width: 725px !important;
+    height: 20px !important;
+    padding: 20px !important;
+}
+.custom-login{
+    background-color: #0AAD0A !important;
+    height: 48px !important;
+    width:92.45px !important ;
+    border-radius: 24px !important;
+    padding: 20px !important;
+}

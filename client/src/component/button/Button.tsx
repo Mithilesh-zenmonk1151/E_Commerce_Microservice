@@ -13,11 +13,12 @@ type ButtonProps = {
   src?: React.ReactElement,
   alt?: string,
   bgColor?:string ,
-  typographyCustomClass?:string
+  typographyCustomClass?:string,
+  customClssSrc?:string
 };
 
 function Buttons(props: ButtonProps) {
-    const {typographyCustomClass,text,handleOnClick,src,customClasses,bgColor,type}=props
+    const {typographyCustomClass,text,handleOnClick,src,customClasses,bgColor,type,customClssSrc}=props
   console.log("props: ", props);
   return (
     <Stack direction="row" spacing={2}>
@@ -28,7 +29,7 @@ function Buttons(props: ButtonProps) {
         textTransform:"none",
         color:"black"
        }}>
-       <Box>
+       <Box className={customClssSrc}  >
        {src}
        </Box>
         <Typography sx={{

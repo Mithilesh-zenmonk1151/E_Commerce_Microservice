@@ -1,0 +1,4 @@
+.avatar-class{
+    display: flex !important;
+    flex-direction: row-reverse !important;
+}

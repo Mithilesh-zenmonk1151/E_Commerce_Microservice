@@ -4,11 +4,15 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 type SearchProp={
+  customPlaceHolder?:string,
+  customClassForSearchBar?:string
 
 }
 export default function SearchBar(props: SearchProp) {
+  const {customPlaceHolder,customClassForSearchBar}= props
   return (
     <Paper
+    className={customClassForSearchBar}
       component="form"
       sx={{
         display: "flex",
@@ -24,7 +28,7 @@ export default function SearchBar(props: SearchProp) {
 
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search...."
+        placeholder={customPlaceHolder}
         inputProps={{ "aria-label": "search google maps" }}
       />
       

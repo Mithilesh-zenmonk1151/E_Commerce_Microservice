@@ -15,7 +15,7 @@ function HeaderLayout() {
             height:"50px",
         }}>
             <Box>
-                <SearchBar/>
+                <SearchBar customPlaceHolder='Search....'/>
             </Box>
             <Box sx={{
                 display:"flex",

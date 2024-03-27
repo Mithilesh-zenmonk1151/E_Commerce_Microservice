@@ -15,7 +15,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useNavigate } from "react-router-dom";
 function SidebarLayout() {
+  const navigate= useNavigate()
+   
+
+  function handleOnClick(){
+    navigate("/settings")
+  }
   return (
     <Stack sx={{
       width:"20%",
@@ -63,7 +70,7 @@ function SidebarLayout() {
         <DropDown text="Chatbots" src={<ChatBubbleOutlineIcon/>}  option1="Create a Chatbot" option1Logo={<AddIcon/>} />
         <Buttons text="Orders" src={<ListAltIcon/>}/>
         <Buttons  text="Customers" src={<SupervisorAccountIcon/>}/>
-        <Buttons src={<SettingsIcon/>} text="Settings"/>
+        <Buttons src={<SettingsIcon/>} text="Settings" handleOnClick={handleOnClick} />
         <Buttons src={<LogoutIcon/>} text="Log out"/>
         </Box>
        </Box>

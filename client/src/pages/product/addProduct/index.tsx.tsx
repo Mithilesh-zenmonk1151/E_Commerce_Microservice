@@ -3,6 +3,7 @@ import { FC } from "react";
 import AddProductHeader from "./addProductHeader/AddProductHeader";
 import AddProductMain from "./addProductMain/AddProductMain";
 import AddProductSidebar from "./addProductSidebar.tsx/AddProductSidebar";
+import SidebarLayout from "../../../layout/sidebarLayout/SidebarLayout";
 
 const AddProduct: FC=()=>{
     return (
@@ -10,7 +11,8 @@ const AddProduct: FC=()=>{
             bgcolor:"#f6f8ff",
             display:"flex"
         }}>
-            <AddProductSidebar/>
+            {/* <AddProductSidebar/> */}
+            <SidebarLayout/>
             <Box>
             <AddProductHeader/>
             <AddProductMain/>
