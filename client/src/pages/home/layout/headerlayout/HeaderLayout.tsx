@@ -9,6 +9,7 @@ import Buttons from '../../../../component/button/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 const HeaderLayout = () => {
   return (
+    <Box>
     <Stack sx={{
         display:"flex",
         flexDirection:"row",
@@ -31,13 +32,32 @@ const HeaderLayout = () => {
             alignItems:"center"
         }}>
             <SearchBar customPlaceHolder='Search products, stores, and recipes' customClassForSearchBar='searchBar-class'/>
-            <RoomIcon/>
+            <RoomIcon/>94105
             <Buttons customClasses='custom-login' text='Log in'/>
-            <ShoppingCartIcon/>
+           <Box sx={{
+            display:"flex",
+            width:"82px",
+            height:"48px",
+            bgcolor:"rgba(246,247,248,1)",
+            borderRadius:"48px",
+            justifyContent:"center",
+            alignItems:"center",
+            gap:"10px"
+           }}><ShoppingCartIcon/> 0</Box> 
+          
 
         </Box>
        
+       
     </Stack>
+      <Box sx={{
+        height:"1px",
+        bgcolor:"#999999",
+        width:"100%"
+     }}>
+
+     </Box>
+     </Box>
   );
 }
 

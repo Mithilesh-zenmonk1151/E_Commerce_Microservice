@@ -1,24 +1,58 @@
-import { Box, Typography } from '@mui/material'
+import { Avatar, Box, Typography } from '@mui/material'
 import React from 'react'
+import "./subCategory.css"
 import Avatars from '../avatar/AvatarI'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 type  SubcategoryProps={
     heading?:string,
-    deliveryTime?:string
+    deliveryTime?:string,
+    pickupStatus?:string,
+    SubcategoryTypographyCustomClass?:"string"
 }
 
 const SubCategory = (props: SubcategoryProps) => {
-  const {heading,deliveryTime}=props
+  const {heading,deliveryTime,pickupStatus,SubcategoryTypographyCustomClass}=props
     return (
-   <Box>
-    <Avatars/>
+   <Box sx={{
+    display:"flex",
+    gap:"10px"
+   }}>
+    <Avatar sx={{
+      height:"48px",
+      width:"48px"
+    }}/>
     <Box>
-        <Typography>
+        <Typography sx={{
+          fontFamily:"Roboto",
+          fontWeight:"600",
+          fontSize:"18px"
+        }}>
             {heading}
         </Typography>
-        <Typography>{deliveryTime}</Typography>
+        <Typography sx={{
+          fontSize:"12px",
+          fontWeight:"600",
+          fontFamily:"Roboto",
+          color:"rgba(10,173,10,1)",
+          
+        }}>{deliveryTime}</Typography>
+        <Typography className={SubcategoryTypographyCustomClass}  sx={{
+          fontFamily:"Roboto",
+          fontSize:"12px"
+        }}>{pickupStatus}</Typography>
     </Box>
-    <NavigateNextIcon/>
+   <Box sx={{
+    display:"flex",
+    alignItems:"center",
+    fontSize:"130px"
+
+    
+   }}>
+   <NavigateNextIcon sx={{
+    height:"55px",
+    width:"25px",
+   }}/>
+   </Box>
 
    </Box>
   )

@@ -25,12 +25,12 @@ function Avatars(props: AvatarProps) {
         fontSize:"14px",
         fontWeight:"900",
         width:"84px"
-      }}>{name} Mark Collin</Typography>
+      }}>{name}</Typography>
       <Typography sx={{
         fontFamily:"Poppins",
         fontSize:"10px",
         fontWeight:"500"
-      }}>{role} Bussinessman </Typography>
+      }}>{role}</Typography>
       <Typography sx={{
         fontFamily:"Helvetica",
         fontSize:"10px",

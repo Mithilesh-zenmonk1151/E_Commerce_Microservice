@@ -38,9 +38,9 @@ const OrderUpper = () => {
  justifyContent:"space-around",
  padding:"14px",
  marginTop:"15px"}}>
-    <OrderStatus productCustomClass='productcustom-product' customClassText='customclass-text' src={<CheckCircleIcon/>} text='At Pickup location ' productName='Texas, 19234' dot='..........' customsrcClass=''/>
-    <OrderStatus  productCustomClass='productcustom-product' customClassText='customclass-text'src={<CheckCircleIcon/>} text='Departed from Pickup location' productName='Texas, 4554' dot='..........' customsrcClass=''/>
-    <OrderStatus  productCustomClass='productcustom-product' customClassText='customclass-text' src={<FiberManualRecordIcon/>} text='Arrived Destination ' productName='NY, 753543' dot='' customsrcClass=''/>
+    <OrderStatus productCustomClass='productcustom-product' customsrcClass="customSrc-class" customClassText='customclass-text' src={<CheckCircleIcon/>} text='At Pickup location ' productName='Texas, 19234' dot='..........' />
+    <OrderStatus  productCustomClass='productcustom-product' customClassText='customclass-text'src={<CheckCircleIcon/>} text='Departed from Pickup location' productName='Texas, 4554' dot='..........' customsrcClass='customSrc-class'/>
+    <OrderStatus  productCustomClass='productcustom-product' customClassText='customclass-text' src={<FiberManualRecordIcon/>} text='Arrived Destination ' productName='NY, 753543' dot='' customsrcClass='customSrc-class'/>
     <OrderStatus  productCustomClass='productcustom-product' customClassText='customclass-text' src={<FiberManualRecordIcon/>} text='Delivered' productName='NY, 753543' />
   </Box>
    </Box>

@@ -14,7 +14,7 @@ import "./StepperComponent.css"
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
-  {
+  {  
     label: 'San Francisco – Oakland Bay Bridge, United States',
     imgPath:
       'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
@@ -72,11 +72,13 @@ function StepperComponent() {
   }
 
   return (
-    <Box sx={{ width:"972px", flexGrow: 1 ,
+    <Box sx={{ width:"100%", flexGrow: 1 ,
     height:"300px",
     display:"flex",
     flexDirection:"column",
-    justifyContent:"center"
+    justifyContent:"center",
+    mt:"31px",
+
     }}>
       <Paper
         square
@@ -84,11 +86,11 @@ function StepperComponent() {
         sx={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent:"center"
         
-          bgcolor: 'background.default',
         }}
       >
-        <Typography>{images[activeStep].label}</Typography>
+        {/* <Typography>{images[activeStep]}</Typography> */}
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -106,7 +108,8 @@ function StepperComponent() {
                   display: 'block',
                  
                   overflow: 'hidden',
-                  width: '972px',
+                  width: '1360px',
+                  borderRadius:"13px"
                 }}
                 src={step.imgPath}
                 alt={step.label}
@@ -116,6 +119,9 @@ function StepperComponent() {
         ))}
       </AutoPlaySwipeableViews>
       <MobileStepper
+      sx={{
+      }}
+      
         steps={maxSteps}
         position="static"
         activeStep={activeStep}
@@ -124,6 +130,15 @@ function StepperComponent() {
             size="small"
             onClick={handleNext}
             disabled={activeStep === maxSteps - 1}
+            sx={
+              {
+                position:"relative",
+                bgcolor:"white",
+                borderRadius:"30px",
+                right:"240px",
+                bottom:"140px"
+              }
+            }
           >
             
             {theme.direction === 'rtl' ? (
@@ -134,7 +149,16 @@ function StepperComponent() {
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button size="small"  sx={
+            {
+              position:"relative",
+              left:"220px",
+              bgcolor:"white",
+              borderRadius:"30px",
+              bottom:"140px"
+
+            }
+          } onClick={handleBack} disabled={activeStep === 0}>
             {theme.direction === 'rtl' ? (
               <KeyboardArrowRight />
             ) : (

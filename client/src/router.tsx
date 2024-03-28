@@ -6,6 +6,8 @@ import AddProduct from "./pages/product/addProduct/index.tsx";
 import Orders from "./pages/order/index";
 import OverView from "./pages/Overview/index";
 import Home from "./pages/home/index";
+import Signup from "./pages/auth/signup/Signup";
+import Login from "./pages/auth/login/Login";
 
 
 const routes:RouteObject[]=[
@@ -32,6 +34,14 @@ const routes:RouteObject[]=[
     {
         path:"/home",
         element: <Home/>
+    },
+    {
+        path:"/signup",
+        element: <Signup/>
+    },
+    {
+        path:"/login",
+        element: <Login/>
     }
    
 ]

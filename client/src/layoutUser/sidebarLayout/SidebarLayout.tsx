@@ -15,6 +15,7 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import LogoutIcon from '@mui/icons-material/Logout';
 import TollIcon from '@mui/icons-material/Toll';
 import NotesIcon from '@mui/icons-material/Notes';
+import HomeIcon from '@mui/icons-material/Home';
 import "./sidebarUser.css"
 const SidebarLayout = () => {
     const navigate= useNavigate();
@@ -23,6 +24,9 @@ const SidebarLayout = () => {
     }
     function handleOnQuoteClick(){
         navigate("/customer/my-quote")
+    }
+    function handleOnHomeClick(){
+        navigate("/home")
     }
     function handleOnOrdersClick(){
         navigate("/customer/my-order")
@@ -81,6 +85,7 @@ const SidebarLayout = () => {
         gap:"18px",
 
     }}> <Typography>Main</Typography>
+        <Buttons customClssSrc="src-class" typographyCustomClass='typo-class' text='Home' src={<HomeIcon/>} handleOnClick={handleOnHomeClick}/>
         <Buttons customClssSrc="src-class" typographyCustomClass='typo-class' text='Overview' src={<GridViewIcon/>} handleOnClick={handleOnDashClick}/>
         <Buttons customClssSrc="src-class" typographyCustomClass='typo-class' text='My Quote' src={<RequestQuoteIcon/>} handleOnClick={handleOnQuoteClick}/>
         <Buttons customClssSrc="src-class" typographyCustomClass='typo-class' text='My Order' src={<ViewInArIcon/>} handleOnClick={handleOnOrdersClick}/>

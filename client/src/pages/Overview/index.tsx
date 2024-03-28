@@ -5,7 +5,6 @@ const OverView = () => {
   return (
     <div>
         <SidebarLayout/>
-      h1ewereryrtuyt
     </div>
   );
 }

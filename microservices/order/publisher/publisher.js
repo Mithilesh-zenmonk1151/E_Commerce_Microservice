@@ -1,24 +1,35 @@
-const amqp= require("amqlib/callback_api");
-amqp.connect(`amqp://localhost`,(error,connection)=>{
-    if(error){
-        throw error;
+const amqp = require('amqplib')
+const config = require('../config/rabbit')
 
+class Producer {
+    channel;
+
+    async createChannel() {
+        const connection = await amqp.connect(config.rabbitMQ.url);
+        this.channel = await connection.createChannel();
     }
-    connection.createChannel((error, channel)=>{
-        if(error){
-            throw error;
+
+    async publishMessage(routingKey, message, signature) {
+        if (!this.channel) {
+            await this.createChannel()
         }
+        const exchangeName = config.rabbitMQ.exchangeName;
+        await this.channel.assertExchange(exchangeName, "direct");
+        const properties = { type: signature };
+        const logDetails = {
+            key: routingKey,
+            message: message,
+            dateTime: new Date(),
+        }
+        await this.channel.publish(
+            exchangeName,
+            routingKey,
+            Buffer.from(JSON.stringify(logDetails)),
+            properties
+        );
 
-        let queueName= "orders";
-        let message= "The orders created";
-        channel.assertQueue(queueName,{
-            durable: false
-        });
-        channel.sendToQueue(queueName,Buffer.from(message));
-        setTimeout(()=>{
-            connection.close();
-        },1000)
+        console.log(`the message ${message} is sent to exchange ${exchangeName} and routing key is ${routingKey}`);
+    }
 
-    })
-
-})
+}
+module.exports = Producer;
