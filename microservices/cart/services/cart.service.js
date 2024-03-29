@@ -19,10 +19,10 @@ exports.createCart = async (payload) => {
 };
 exports.getCart = async (payload) => {
   try {
-    const { userId } = payload.body.userId;
-    const cart = await cartModel.findOne({ userId });
+    const { productId } = payload.body.productId;
+    const cart = await cartModel.findOne({ productId });
     if (cart) {
-      return cart;
+      return quantity= quantity+1;
     } else {
       return null;
     }

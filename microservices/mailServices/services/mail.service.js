@@ -35,6 +35,12 @@ exports.checkOtp= async(payload)=>{
             success: false,
             message: "The OTP is not valid",
           })
+
+        }
+        else if(otp == response[0].otp){
+              
+
+
         }
 
     }
