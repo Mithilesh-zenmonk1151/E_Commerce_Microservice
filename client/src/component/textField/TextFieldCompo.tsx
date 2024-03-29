@@ -7,11 +7,12 @@ type TextFieldProps={
   Label?:string,
   Type?:string,
   customClassName?:string,
-  handleOnChange?:React.ChangeEvent<HTMLInputElement>
+  handleOnChange?:React.ChangeEvent<HTMLInputElement>,
+  setValue?: (value: string) => void
 
 }
 function TextFieldCompo(props: TextFieldProps) {
-  const {value, placeholder,Label,Type,customClassName,handleOnChange}=props
+  const {value, placeholder,Label,Type,customClassName,handleOnChange,setValue}=props
   return (
     <Stack  sx={{
       marginTop:"22px"
@@ -21,7 +22,7 @@ function TextFieldCompo(props: TextFieldProps) {
          placeholder={placeholder}
          value={value}
          type={Type}
-         onChange={()=>handleOnChange}
+         onChange={(e)=>setValue(e.target.value)}
          className={customClassName}
          sx={{
           paddingTop:"14px"

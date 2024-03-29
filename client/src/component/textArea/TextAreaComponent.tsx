@@ -5,19 +5,20 @@ type TextAreaComponent={
     placeholder?:string,
     value?: string,
     handleOnChange?: (event: React.ChangeEvent<HTMLInputElement>) =>void,
-    event?: Event
+    event?: Event,
+    description?:string
 
 }
 
 function TextAreaComponent(props: TextAreaComponent) {
-    const {placeholder,value,handleOnChange}=props
+    const {placeholder,value,handleOnChange,description}=props
 
     
     
     return (
         <Stack> 
-            <label>Description</label>
-            <Textarea placeholder={placeholder} value={value} />
+            <label>{description}</label>
+            <Textarea placeholder={placeholder} value={value}  onChange={()=>handleOnChange} />
         </Stack>
 
     )

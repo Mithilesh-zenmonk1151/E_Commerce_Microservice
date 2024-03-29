@@ -9,11 +9,11 @@ function AddProductHeader() {
     return (
        <Stack sx={{
         bgcolor:"#ffffff",
-        width:"88vw",
+        width:"80vw",
         display:"flex",
         flexDirection:"row",
         justifyContent:"space-around",
-        height:"90px",
+        height:"70px",
 
        }}>
         <Box>

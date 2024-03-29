@@ -32,7 +32,7 @@ const HeaderLayout = () => {
  </Box>
  <Box sx={{
     height:"1px",
-    bgcolor:"black",
+    bgcolor:"#9faebd",
     width:"100%"
  }}>
 

@@ -3,6 +3,7 @@ const { userService } = require('../services');
 const register  = async (payload) => {
   // const {userDetails = {}} = payload
   console.log(payload)
+  console.log("userConsumerefgrfre",payload)
   try {
     const response = await userService.register(payload);
     if (!response) {

@@ -3,9 +3,10 @@ import axios from 'axios'
 import { typeCreateUser, typeLoginUser } from './authType'
 
 interface createUserProps {
-    name: string,
+    fullName:string,
     email: string,
     password : string,
+
 }
 
 export const createUser = createAsyncThunk(
@@ -13,9 +14,9 @@ export const createUser = createAsyncThunk(
     async(data : createUserProps)=> {
         try {
             console.log(data);
-            const response = await axios.post('http://localhost:8000/auth/signup', data)
-            const dataj = await response.data
-            return dataj;
+            const response = await axios.post('http://localhost:8000/api/auth/signup', data)
+            const dataR = await response.data
+            return dataR;
         } catch (error) {
             throw error;
         }
@@ -32,7 +33,7 @@ export const login = createAsyncThunk(
     typeLoginUser,
     async(data : loginProps)=> {
         try{
-            const response = await axios.post('http://localhost:8080/auth/login', data)
+            const response = await axios.post('http://localhost:8080/api/auth/login', data)
             const resData = await response.data
             console.log(resData);
             return resData

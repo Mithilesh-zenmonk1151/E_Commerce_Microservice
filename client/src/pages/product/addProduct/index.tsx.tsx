@@ -8,12 +8,18 @@ import SidebarLayout from "../../../layout/sidebarLayout/SidebarLayout";
 const AddProduct: FC=()=>{
     return (
         <Box sx={{
-            bgcolor:"#f6f8ff",
-            display:"flex"
+            bgcolor:"#f7f7ff",
+            display:"flex",
+            height:"121vh",
+            paddingRight:0,
+            padding:0
         }}>
             {/* <AddProductSidebar/> */}
             <SidebarLayout/>
-            <Box>
+            <Box sx={{
+                display:"flex",
+                flexDirection:"column"
+            }}>
             <AddProductHeader/>
             <AddProductMain/>
             </Box>

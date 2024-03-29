@@ -21,6 +21,10 @@ const authSchema= new mongoose.Schema({
         enum:["Admin","Customer","Vender","DeliveryManager"],
         default: "Customer"
     },
+    otp:{
+        type:String,
+        trim:true
+    },
     status: {
         type: String,
         enum: ["Active", "Deactive","Pending"],

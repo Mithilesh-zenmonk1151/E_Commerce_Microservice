@@ -1,7 +1,9 @@
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import TextFieldCompo from '../../../../component/textField/TextFieldCompo'
 import "./AddProductMain.css"
+import { DropzoneArea } from 'material-ui-dropzone';
+import DragDrop from '../../../../component/dragDrop/DargDrop';
 
 function AddProductMain() {
     return (
@@ -38,13 +40,20 @@ function AddProductMain() {
 
       </Box>
        </Box>
-       <Box>
+       <Box sx={{
+        display:"flex",
+        flexDirection:"column",
+        gap:"50px"
+       }}>
         <Box sx={{
             bgcolor:"#c8c8c8",
             height:"428px",
             width:"441px"
         }}>
-
+        </Box>
+        <Box>
+<Typography>Product Gallery</Typography>
+  <DragDrop/>
         </Box>
 
        </Box>

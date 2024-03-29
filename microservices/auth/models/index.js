@@ -1,3 +1,4 @@
 module.exports={
-    authModel:require("./auth.model")  
+    authModel:require("./auth.model"),
+    emailModel:require("./email.model.js") 
 }

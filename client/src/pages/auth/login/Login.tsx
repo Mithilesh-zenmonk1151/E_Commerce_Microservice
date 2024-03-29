@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import Checkbox from '@mui/material/Checkbox';
-
+import "./Login.css"
 import HeaderLayout from '../signup/headerLayout/HeaderLayout';
 import loginLogo from "../../../assets/loginPic.png"
 import TextFieldCompo from '../../../component/textField/TextFieldCompo';
@@ -14,8 +14,8 @@ const Login = () => {
       <HeaderLayout/>
     </Box>
     <Box sx={{
-      bgcolor:"#f9fafb",
-      height:"90vh",
+      bgcolor:"#cbd4dc",
+      height:"94vh",
       display:"flex",
       justifyContent:"center"
     }}>
@@ -29,8 +29,9 @@ const Login = () => {
           display:"flex",
           bgcolor:"white",
           width:"1250px",
-          borderRadius:"30px",
-          height:"600px"
+          height:"600px",
+          borderRadius:"30px"
+        
         }}>
           <img src={loginLogo} alt='login' className='login-logo'/>
            <Box  sx={{
@@ -42,12 +43,23 @@ const Login = () => {
             fontSize:"35px",
             fontWeight:"500"
           }}>Sign In</Typography>
-            <Box>
+            <Box sx={{
+              display:"flex",
+              flexDirection:"column",
+              gap:"30px"
+            }}>
             <TextFieldCompo Label='Your email' placeholder='Enter your email id here'/>
             <TextFieldCompo Label='Password' placeholder='.........'/>
           </Box>
 
-          <Box sx={{
+         <Box sx={{
+          display:"flex",
+          flexDirection:"column",
+          gap:"30px",
+          mt:"30px"
+
+         }}>
+         <Box sx={{
           display:"flex",
           textAlign:"center",
           alignItems:"center",
@@ -63,6 +75,7 @@ const Login = () => {
           </Box>
           <Buttons text='Sign In ' typographyCustomClass='type-signup' customClasses='signup-btn'/>
 
+         </Box>
 
            </Box>
         </Box>
