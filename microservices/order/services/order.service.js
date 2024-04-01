@@ -4,10 +4,13 @@ const producer = new Producer();
 exports.createOrders = async (payload) => {
   try {
     const { productId } = payload.params;
+    const quantity= payload.body;
     const message = await producer.sentMsg({
       exchangeName: "order-product",
       productId: productId,
+      quantity: quantity
     });
+
     const orders = await orderModel.create({
       productName: productName,
       image: image,

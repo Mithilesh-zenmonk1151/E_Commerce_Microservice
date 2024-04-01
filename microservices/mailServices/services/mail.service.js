@@ -1,19 +1,40 @@
 const emailModel= require("../models");
+const CustomError = require("../utils/error");
+const Producer= require("../worker/publisher.worker");
+const producer= new Producer();
+
 
 exports.createOtp= async(payload) =>{
    try{
     const {email}= payload.body;
     const isExistemail= await emailModel.findOne({email});
+    if(isExistemail){
+      throw new CustomError("user allready exist",409)
+    }
     const otp = otpGenerator.generate(6, {
         upperCaseAlphabets: false,
         lowerCaseAlphabets: false,
         specialChars: false,
       })
+      const result= await emailModel.findOne({otp:otp});
+      console.log("Otp", otp);
+      while(result){
+        otp=otpGenerator.generate(6,{
+          upperCaseAlphabets:false,
+        })
+      }
+
+
       const Otp= await emailModel.create({
         email:email,
         otp:otp,
 
-      })
+      });
+      const routingKey="otp"
+      const signature="otp.otp_created";
+      await producer.publishMessage(routingKey,Otp,signature)
+
+
       return Otp;
    }
    catch(error){

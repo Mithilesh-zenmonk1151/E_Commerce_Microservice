@@ -12,6 +12,7 @@ const persistedReducer = persistReducer(persistConfig, authSlice);
 export const store = configureStore({
   reducer: {
     user: persistedReducer,
+    
   },
 });
 

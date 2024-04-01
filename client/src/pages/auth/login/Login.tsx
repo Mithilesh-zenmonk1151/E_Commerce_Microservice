@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import "./Login.css"
 import HeaderLayout from '../signup/headerLayout/HeaderLayout';
@@ -8,6 +8,8 @@ import TextFieldCompo from '../../../component/textField/TextFieldCompo';
 import Buttons from '../../../component/button/Button';
 import { Check, CheckBox } from '@mui/icons-material';
 const Login = () => {
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
   return (
    <Box>
     <Box>
@@ -43,13 +45,14 @@ const Login = () => {
             fontSize:"35px",
             fontWeight:"500"
           }}>Sign In</Typography>
-            <Box sx={{
+           <form>
+           <Box sx={{
               display:"flex",
               flexDirection:"column",
               gap:"30px"
             }}>
-            <TextFieldCompo Label='Your email' placeholder='Enter your email id here'/>
-            <TextFieldCompo Label='Password' placeholder='.........'/>
+            <TextFieldCompo value={email} Type='email' setValue={setEmail} Label='Your email' placeholder='Enter your email id here'/>
+            <TextFieldCompo value={password} Type='password' setValue={setPassword} Label='Password' placeholder='.........'/>
           </Box>
 
          <Box sx={{
@@ -73,9 +76,11 @@ const Login = () => {
 
 
           </Box>
-          <Buttons text='Sign In ' typographyCustomClass='type-signup' customClasses='signup-btn'/>
+          </Box>
 
-         </Box>
+          <Buttons text='Sign In ' typographyCustomClass='type-signup' customClasses='signup-btn'/>
+           </form>
+
 
            </Box>
         </Box>

@@ -9,13 +9,13 @@ import Checkbox from '@mui/material/Checkbox';
 import { useAppDispatch } from '../../../redux/store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../../redux/slice/authSlice/auth.action';
-
-
-
+import {FormData, UserSchema} from './type';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 const Signup = () => {
   const [email, setEmail]= useState("");
   const [password, setPassword]= useState("");
-  const [confirmPassword, setConfirmPassword]=useState("");
+  const [confirmPassword, setConfirmPassword]=useState("");1
   console.log("emaildsgf",email)
   console.log("password", password);
   console.log("confirmPassword",confirmPassword);
@@ -25,6 +25,20 @@ const Signup = () => {
   const handleOnSubmit=async(e)=>{
     e.preventDefault();
     console.log("handle on Submit")
+
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<FormData>({
+      resolver: zodResolver(UserSchema),
+  });
+
+  const onSubmit = async (data: FormData) => {
+      dispatch(createUser(data)).then((response)=> {
+          if(response.payload) navigate("/Login");
+      });
+  }
 
     // try{
     //    dispatch(createUser())
@@ -72,7 +86,7 @@ const Signup = () => {
           bgcolor:"white",
           padding:"30px"
         }}>
-          <form onSubmit={handleOnSubmit}>
+          <form  onSubmit={handleSubmit(onSubmit)}>
           <Typography variant='h4' sx={{
             fontFamily:"Roboto",
             fontSize:"35px",

@@ -18,10 +18,14 @@ exports.recieveMsg = async () => {
     const connection = await amqp.connect("amqp://localhost:5672");
     const channel = await connection.createChannel();
 
-    await channel.assertExchange(exchangeName, exchangeType);
+    await channel.assertExchange("productExchange", "direct");
+    await channel.assertExchange("shippingExchange", "direct");
+    await channel.assertExchange("userExchange", "direct");
     const q = await channel.assertQueue(queueName, { durable: true });
 
-    await channel.bindQueue(q?.queue, exchangeName, "auth");
+    await channel.bindQueue(order.queue, "productExchange", "product");
+    await channel.bindQueue(order.queue, "shippingExchange", "shipping");
+    await channel.bindQueue(order.queue, "userExchange", "user");
 
     console.log(`Waiting for messages in queue: ${q.queue}`);
     channel.consume(q?.queue, async (msg) => {
