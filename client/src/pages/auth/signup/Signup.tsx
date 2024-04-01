@@ -22,9 +22,9 @@ const Signup = () => {
  const dispatch= useAppDispatch();
  const navigate= useNavigate();
 
-  const handleOnSubmit=async(e)=>{
-    e.preventDefault();
-    console.log("handle on Submit")
+  // const handleOnSubmit=async(e)=>{
+  //   e.preventDefault();
+  //   console.log("handle on Submit")
 
     const {
       register,
@@ -47,7 +47,7 @@ const Signup = () => {
     // catch(error){
 
     // }
-  }
+  
 // const {
 //   handleOnSubmit,register,
 //   formState:{error},}=useForm<FormData>({
@@ -127,6 +127,6 @@ const Signup = () => {
     </Box>
    </Box>
   );
-}
+        }
 
 export default Signup;
