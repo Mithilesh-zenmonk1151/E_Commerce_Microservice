@@ -10,9 +10,15 @@ function DashBoardContent() {
   const [userName,setUserName]=useState("");
   return (
     <Stack sx={{
-      paddingTop:"42px"
+      paddingTop:"42px",
+      height:"100vh",
+      bgcolor:"white",
+      
+      
     }}>
-      <Box>
+      <Box sx={{
+       
+      }}>
         <TypographyCompo heading='General Information' body="Lorem ipsum dolor sit amet consectetur"/>
         <Box>
           <Typography sx={{
@@ -21,6 +27,7 @@ function DashBoardContent() {
             fontFamily:"Inter",
             lineHeight:"22px",
             marginTop:"30px",
+
 
           }}>Profile Picture</Typography>
           <Box sx={{
@@ -45,7 +52,8 @@ function DashBoardContent() {
         display:"grid",
         gridTemplateColumns:"auto auto",
          gap:"32px",
-         paddingTop:"45px"
+         paddingTop:"45px",
+         width:"100%",
       }}>
         <TextFieldCompo placeholder='Sam' value={userName} Label='Username' Type='text' customClassName='profile-inputs' />
         <TextFieldCompo placeholder='xyz@gmail.com' value={userName} Label='Email Address' Type='text' customClassName='profile-inputs' />
