@@ -6,9 +6,8 @@ interface createUserProps {
     fullName:string,
     email: string,
     password : string,
-
+    confirmPassword: string
 }
-
 export const createUser = createAsyncThunk(
     typeCreateUser,
     async(data : createUserProps)=> {

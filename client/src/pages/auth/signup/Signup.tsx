@@ -6,54 +6,52 @@ import signupLogo from "../../../assets/singupPic.png"
 import TextFieldCompo from '../../../component/textField/TextFieldCompo';
 import Buttons from '../../../component/button/Button';
 import Checkbox from '@mui/material/Checkbox';
-import { useAppDispatch } from '../../../redux/store/hooks';
+import { useAppDispatch,useAppSelector } from '../../../redux/store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../../redux/slice/authSlice/auth.action';
 import {FormData, UserSchema} from './type';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+type signupType = {
+  role: String;
+  name: String;
+  email: String;
+  password: String;
+};
 const Signup = () => {
   const [email, setEmail]= useState("");
   const [password, setPassword]= useState("");
-  const [confirmPassword, setConfirmPassword]=useState("");1
+  const [confirmPassword, setConfirmPassword]=useState("");
   console.log("emaildsgf",email)
   console.log("password", password);
   console.log("confirmPassword",confirmPassword);
  const dispatch= useAppDispatch();
  const navigate= useNavigate();
+//  const signup = useAppSelector((state) => state?.signup?.content)
+  // const error = useAppSelector((state) => state?.signup?.error)
 
-  // const handleOnSubmit=async(e)=>{
-  //   e.preventDefault();
-  //   console.log("handle on Submit")
-
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<FormData>({
-      resolver: zodResolver(UserSchema),
-  });
-
-  const onSubmit = async (data: FormData) => {
-      dispatch(createUser(data)).then((response)=> {
-          if(response.payload) navigate("/Login");
-      });
-  }
-
-    // try{
-    //    dispatch(createUser())
-
-    // }
-    // catch(error){
-
-    // }
-  
-// const {
-//   handleOnSubmit,register,
-//   formState:{error},}=useForm<FormData>({
-//     resolver:zodResolver
-//   })
-// }
+ const data={
+  email,
+  password,
+  confirmPassword
+ }
+ const [user, setUser] = useState<signupType>({
+  role: "",
+  name: "",
+  email: "",
+  password: "",
+});
+ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  console.log(data);
+  dispatch(createUser(user));
+  // if(error){
+  //   window.alert("some error occcured try again later")
+  // }
+  // else{
+  //   navigate('/login')
+  // }
+};
   return (
    <Box sx={{
    
@@ -86,7 +84,7 @@ const Signup = () => {
           bgcolor:"white",
           padding:"30px"
         }}>
-          <form  onSubmit={handleSubmit(onSubmit)}>
+          <form  onSubmit={(e)=>handleSubmit(e)}>
           <Typography variant='h4' sx={{
             fontFamily:"Roboto",
             fontSize:"35px",
