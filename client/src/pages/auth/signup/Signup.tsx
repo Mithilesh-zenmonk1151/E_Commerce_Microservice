@@ -12,12 +12,12 @@ import { createUser } from '../../../redux/slice/authSlice/auth.action';
 import {FormData, UserSchema} from './type';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-type signupType = {
-  role: String;
-  name: String;
-  email: String;
-  password: String;
-};
+// type signupType = {
+//   role: String;
+//   name: String;
+//   email: String;
+//   password: String;
+// };
 const Signup = () => {
   const [email, setEmail]= useState("");
   const [password, setPassword]= useState("");
@@ -30,28 +30,24 @@ const Signup = () => {
 //  const signup = useAppSelector((state) => state?.signup?.content)
   // const error = useAppSelector((state) => state?.signup?.error)
 
- const data={
-  email,
-  password,
-  confirmPassword
- }
- const [user, setUser] = useState<signupType>({
-  role: "",
-  name: "",
-  email: "",
-  password: "",
-});
+//  const data={
+//   email,
+//   password,
+//   confirmPassword
+//  }
+//  const [user, setUser] = useState<signupType>({
+//   role: "",
+//   name: "",
+//   email: "",
+//   password: "",
+// });
  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  console.log(data);
-  dispatch(createUser(user));
-  // if(error){
-  //   window.alert("some error occcured try again later")
   // }
-  // else{
-  //   navigate('/login')
-  // }
-};
+//  e{ els
+//     navigate('/login')
+  }
+
   return (
    <Box sx={{
    
@@ -98,8 +94,8 @@ const Signup = () => {
          }}>
          <Box> 
             <TextFieldCompo setValue={setEmail}  Label='Your email' placeholder='Enter your email id here' value={email} Type='email'/>
-            <TextFieldCompo setValue={setPassword} Label='Password' placeholder='.........' value={password} Type='password'/>
-            <TextFieldCompo setValue={setConfirmPassword} Label='Confirm Password' placeholder='..........' value={confirmPassword} Type='password'/>
+            <TextFieldCompo setValue={setPassword} Label='Password' placeholder='.........'   value={password}   Type='password'/>
+            <TextFieldCompo setValue={setConfirmPassword} Label='Confirm Password' placeholder='..........'  value={confirmPassword} Type='password'/>
           </Box>
          <Box sx={{
           display:"flex",

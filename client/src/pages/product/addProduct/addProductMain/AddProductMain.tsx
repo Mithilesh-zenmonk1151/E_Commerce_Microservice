@@ -4,6 +4,8 @@ import TextFieldCompo from '../../../../component/textField/TextFieldCompo'
 import "./AddProductMain.css"
 import { DropzoneArea } from 'material-ui-dropzone';
 import DragDrop from '../../../../component/dragDrop/DargDrop';
+import Buttons from '../../../../component/button/Button';
+import Progressbar from '../../../../component/progressBar/Progressbar';
 
 function AddProductMain() {
     return (
@@ -55,7 +57,11 @@ function AddProductMain() {
 <Typography>Product Gallery</Typography>
   <DragDrop/>
         </Box>
+        <Progressbar/>
+        <Progressbar/>
+        <Progressbar/>
 
+          <Buttons text='upload'/>
        </Box>
        </Stack>
     )

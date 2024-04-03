@@ -49,7 +49,7 @@ const Home = () => {
           // height:"75vh",
           gap:"25px",
           flexWrap:"wrap",
-          width:"72.3%"
+          width:"93.3%"
         }}>
           <CategoryComponent  categoryLogo={trophyLogo} categoryAlt='trophy' text='Popular'/>
           <CategoryComponent  categoryLogo={wineLogo} categoryAlt='trophy' text='Wine'/>
@@ -77,7 +77,7 @@ const Home = () => {
        <Box sx={{
         display:"flex",
         justifyContent:"center",
-        width:"42%",
+        width:"27%",
        }}>
           <SubCategory heading='Sporouts Farmers Market' deliveryTime='Deliver by 10:01am' pickupStatus='Pickup available'  />
         </Box>
@@ -111,7 +111,7 @@ const Home = () => {
        <Box sx={{
         display:"flex",
         justifyContent:"center",
-        width:"42%"
+        width:"27%"
        }}>
           <SubCategory heading='Sporouts Farmers Market' deliveryTime='Deliver by 10:01am' pickupStatus='Pickup available'  />
         </Box>
@@ -145,7 +145,7 @@ const Home = () => {
        <Box sx={{
         display:"flex",
         justifyContent:"center",
-        width:"42%"
+        width:"27%"
        }}>
           <SubCategory heading='Sporouts Farmers Market' deliveryTime='Deliver by 10:01am' pickupStatus='Pickup available'  />
         </Box>

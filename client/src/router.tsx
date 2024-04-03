@@ -8,6 +8,7 @@ import OverView from "./pages/Overview/index";
 import Home from "./pages/home/index";
 import Signup from "./pages/auth/signup/Signup";
 import Login from "./pages/auth/login/Login";
+import AllProduct from "./pages/product/allProducts/AllProduct";
 
 
 const routes:RouteObject[]=[
@@ -22,6 +23,10 @@ const routes:RouteObject[]=[
         path:'/allproducts/addProduct',
             element :<AddProduct/>
         
+    },
+    {
+        path:"/allproducts",
+        element:<AllProduct/>
     },
     {
         path:"/customer/my-order",
