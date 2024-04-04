@@ -1,20 +1,28 @@
-import {createSlice, miniSerializeError} from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 import { createUser, login } from "./auth.action";
-import { RootState } from '../../store/store';
+
+interface userProps {
+    name: string;
+    email: string;
+    role: string;
+}
+
 
 interface initialStateProps {
     isLoading: boolean
-    user: object
+    user: userProps 
     error: number | null
 }
 
 const initialState : initialStateProps ={
     isLoading : false,
-    user: {},
+    user: {
+        name: "",
+        email: "",
+        role: ""
+    },
     error: null,
 }
-
-
 
 export const authSlice = createSlice({
     name: 'auth',
