@@ -10,11 +10,11 @@ exports.register = async (payload) => {
 console.log("😊😊😊😊",payload)
 // const message=await consumeMessage({exchangeName:"Auth",message})
 
-console.log("paylod.fullName 😊😊",payload.message.fullName);
+console.log("paylod.fullName 😊😊",payload.message.name);
 console.log("paylod.fullName 😊😊",payload.message.email);
 console.log("paylod.fullName 😊😊",payload.message.email);
 const consumeMsg= await payload.message;
- const fullName=await  consumeMsg?.fullName;
+ const name=await  consumeMsg?.name;
  const email= await consumeMsg?.email;
  const password=await consumeMsg?.password;
  const role= await consumeMsg?.role;
@@ -25,7 +25,7 @@ const consumeMsg= await payload.message;
       throw new errorHandler("User all ready exist", 409);
     }
     const user =  new userModel({
-      fullName:fullName,
+      name:name,
       email:email,
       password : password,
       role:role,
@@ -76,12 +76,12 @@ exports.updateUserProfile = async (payload) => {
   try {
     console.log(payload.params);
     const { id } = payload.params;
-    const { fullName, email } = payload.body;
+    const { name, email } = payload.body;
 
     const user = await userModel.findByIdAndUpdate(
       id,
       {
-        fullName: fullName,
+        name: name,
         email: email,
       },
       { new: true }

@@ -1,7 +1,7 @@
 const mongoose= require("mongoose");
 
 const authSchema= new mongoose.Schema({
-    fullName:{
+    name:{
         type:String,
         required: true,
         trim: true
@@ -25,6 +25,10 @@ const authSchema= new mongoose.Schema({
         type:String,
         trim:true
     },
+    additionalDetails: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "_id",
+      },
     status: {
         type: String,
         enum: ["Active", "Deactive","Pending"],

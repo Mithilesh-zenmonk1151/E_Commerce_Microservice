@@ -52,7 +52,7 @@ const Signup = () => {
   const dispatch = useAppDispatch();
   interface FormData {
 
-    fullName: string;
+    name: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -130,7 +130,7 @@ const Signup = () => {
               placeholder="Name"
               name="name"
               register={register}
-              error={errors.fullName}
+              error={errors.name}
             />
 
             <FormField
@@ -164,9 +164,10 @@ const Signup = () => {
                 padding: "10px",
               }}
             >
-              <option value="USER">USER</option>
-              <option value="VENDOR">VENDOR</option>
-              <option value="ADMIN">ADMIN</option>
+              <option value="Admin">Admin</option>
+              <option value="Customer">Customer</option>
+              <option value="Vender">Vender</option>
+              <option value="DeliveryManager">DeliveryManager</option>
             </select>
           </Box>
          <Box sx={{

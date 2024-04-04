@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const cors= require("cors")
 dotenv.config();
+var cookieParser = require('cookie-parser');
 const database = require("./config/database");
 // const { recieveMsg } = require("./work/consumer.work");
 // const { recieveMsg } = require("./work/consumer.work");
@@ -10,7 +11,10 @@ const database = require("./config/database");
 const PORT = process.env.PORT || 4001;
 database.connect();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cors());
+app.use(cookieParser());
 // recieveMsg();
 
  app.use("/api", require("./routes"));

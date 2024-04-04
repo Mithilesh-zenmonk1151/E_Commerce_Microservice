@@ -1,28 +1,28 @@
 const { authModel } = require("../models");
-const {emailModel} = require("../models")
+const { emailModel } = require("../models");
 const CustomError = require("../utils/error");
+const cookie = require("cookie-parser");
+
 const Producer = require("../work/producer.work");
 const producer = new Producer();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-exports.storeOtp= async(payload)=>{
-
-  const email= await payload.email;
-  const otp= await payload.otp;
-  const Otp= new emailModel({
-    email:email,
-    otp:otp
+exports.storeOtp = async (payload) => {
+  const email = await payload.email;
+  const otp = await payload.otp;
+  const Otp = new emailModel({
+    email: email,
+    otp: otp,
   });
   await Otp.save();
-
-}
+};
 
 exports.register = async (payload) => {
   console.log("auth return from user  payload", payload);
-  const { fullName, email, password, role, confirmPassword } = payload.body;
-  if (!(fullName && email && password && role))
-    throw new CustomError("User credentials not found", 422);
-  const user = await authModel.findOne({ email });
+  const { name, email, password, role, confirmPassword } = payload.body;
+  // if (!(fullName && email && password && role))
+  //   throw new CustomError("User credentials not found", 422);
+  const user = await authModel.authModel.findOne({ email });
   if (user) {
     throw new CustomError("email already exists", 409);
   }
@@ -30,12 +30,12 @@ exports.register = async (payload) => {
     throw CustomError("Password and confirmpassword do not matched", 400);
   }
 
-  console.log(fullName, email, password, role);
+  console.log(name, email, password, role);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(
       "services form data",
-      fullName,
+      name,
       email,
       password,
       role,
@@ -43,7 +43,7 @@ exports.register = async (payload) => {
     );
 
     const user = await new authModel({
-      fullName: fullName,
+      name: name,
       email: email,
       password: hashedPassword,
       role: role,
@@ -52,7 +52,7 @@ exports.register = async (payload) => {
     const signature = "auth.auth_created";
     await producer.publishMessage(routingKey, user, signature);
     const auth = await authModel.create({
-      fullName: fullName,
+      name: name,
       email: email,
       password: hashedPassword,
       role: role,
@@ -98,7 +98,7 @@ exports.login = async (payload, res) => {
         message: `Please Fill up All the Required Fields`,
       });
     }
-    const user = await authModel.findOne({ email });
+    const user = await authModel.findOne({ email }).populate("additionalDetails").exec();
     if (!user) {
       throw Object.assign(new Error(), {
         name: "INVALIDUSER",
@@ -126,13 +126,11 @@ exports.login = async (payload, res) => {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         httpOnly: true,
       };
-      res.cookie("token", token, options).status(200).json({
-        success: true,
+      return res.json({
+        status: 'success',
         token,
-        user,
-        message: `User Login Success`,
-      });
-      
+        options
+    });
     }
   } catch (error) {
     console.error(error);

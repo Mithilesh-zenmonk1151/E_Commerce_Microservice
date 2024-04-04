@@ -102,7 +102,7 @@ const onSubmit = async (data: LoginFormData) => {
             fontSize:"35px",
             fontWeight:"500"
           }}>Sign In</Typography>
-           <form>
+           <form onSubmit={handleSubmit(onSubmit)}>
            <Box sx={{
               display:"flex",
               flexDirection:"column",
@@ -148,7 +148,7 @@ const onSubmit = async (data: LoginFormData) => {
           </Box>
           </Box>
 
-          <Buttons text='Sign In ' typographyCustomClass='type-signup' customClasses='signup-btn'/>
+          <Buttons text='Sign In ' type='submit' typographyCustomClass='type-signup' customClasses='signup-btn'/>
            </form>
 
 
