@@ -2,7 +2,6 @@ const { authModel } = require("../models");
 const { emailModel } = require("../models");
 const CustomError = require("../utils/error");
 const cookie = require("cookie-parser");
-
 const Producer = require("../work/producer.work");
 const producer = new Producer();
 const bcrypt = require("bcrypt");
@@ -16,7 +15,6 @@ exports.storeOtp = async (payload) => {
   });
   await Otp.save();
 };
-
 exports.register = async (payload) => {
   console.log("auth return from user  payload", payload);
   const { name, email, password, role, confirmPassword } = payload.body;
@@ -29,7 +27,6 @@ exports.register = async (payload) => {
   if (password !== confirmPassword) {
     throw CustomError("Password and confirmpassword do not matched", 400);
   }
-
   console.log(name, email, password, role);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -41,7 +38,6 @@ exports.register = async (payload) => {
       role,
       confirmPassword
     );
-
     // const user = await new authModel({
     //   name: name,
     //   email: email,
@@ -69,7 +65,6 @@ exports.authCreateUser = async ({ data }) => {
   console.log(user);
   return user;
 };
-
 exports.authUpdateUser = async (data) => {
   const { uuid } = data;
   const user = User.findOneAndUpdate({ uuid }, data, { new: true });
@@ -77,7 +72,6 @@ exports.authUpdateUser = async (data) => {
   console.log(user);
   return user;
 };
-
 exports.subUpdateUserStatus = async (data) => {
   const { uuid } = data;
   const user = User.findOneAndUpdate({ uuid }, data, { new: true });
@@ -85,7 +79,6 @@ exports.subUpdateUserStatus = async (data) => {
   console.log(user);
   return user;
 };
-
 exports.subDeleteUser = async (data) => {
   const { uuid } = data;
 };
@@ -98,7 +91,8 @@ exports.login = async (payload, res) => {
         message: `Please Fill up All the Required Fields`,
       });
     }
-    const user = await authModel.findOne({ email })
+    const user = await userModel.userModel
+      .findOne({ email })
       .populate("additionalDetails")
       .exec();
     if (!user) {
@@ -113,8 +107,7 @@ exports.login = async (payload, res) => {
         name: "INVALIDPASSWORD",
         message: "Wrong Password",
       });
-    } 
-    else{
+    } else {
       const token = jwt.sign(
         { email: user.email, id: user._id },
         process.env.JWT_SECRET,
@@ -128,12 +121,15 @@ exports.login = async (payload, res) => {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         httpOnly: true,
       };
+
       res.cookie("token", token, options).status(200).json({
         success: true,
         token,
         user,
         message: `User Login Success`,
       });
+
+      console.log("login response");
     }
   } catch (error) {
     console.error(error);

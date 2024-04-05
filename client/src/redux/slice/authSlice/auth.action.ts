@@ -32,7 +32,8 @@ export const login = createAsyncThunk(
     typeLoginUser,
     async(data : loginProps)=> {
         try{
-            const response = await axios.post('http://localhost:4000/api/auth/login', data)
+            const response = await axios.post('http://localhost:4000/api/auth/login', data);
+            console.log("login reducx toolkit", data)
             const resData = await response.data
             console.log(resData);
             return resData

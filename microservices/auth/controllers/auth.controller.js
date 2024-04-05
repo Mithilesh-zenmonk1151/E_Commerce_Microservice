@@ -17,13 +17,13 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const response = await authService.login(req);
+    console.log("Login routeefegf")
+    const response = await userService.login(req, res);
     if (response.status === 400) {
       return res.status(400).json({
         success: false,
         message: `Please Fill up All the Required Fields`,
       });
-
     }
   } catch (error) {
     if (error.name === "INVALIDUSER") {
