@@ -37,6 +37,7 @@ export const login = createAsyncThunk(
             const resData = await response.data
             console.log(resData);
             return resData
+            
         }
         catch(error) {
             throw error;
