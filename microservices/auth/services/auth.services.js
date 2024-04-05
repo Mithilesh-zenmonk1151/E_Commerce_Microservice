@@ -22,7 +22,7 @@ exports.register = async (payload) => {
   const { name, email, password, role, confirmPassword } = payload.body;
   // if (!(fullName && email && password && role))
   //   throw new CustomError("User credentials not found", 422);
-  const user = await authModel.authModel.findOne({ email });
+  const user = await authModel.findOne({ email });
   if (user) {
     throw new CustomError("email already exists", 409);
   }
@@ -42,15 +42,15 @@ exports.register = async (payload) => {
       confirmPassword
     );
 
-    const user = await new authModel({
-      name: name,
-      email: email,
-      password: hashedPassword,
-      role: role,
-    });
-    const routingKey = "auth";
-    const signature = "auth.auth_created";
-    await producer.publishMessage(routingKey, user, signature);
+    // const user = await new authModel({
+    //   name: name,
+    //   email: email,
+    //   password: hashedPassword,
+    //   role: role,
+    // });
+    // const routingKey = "auth";
+    // const signature = "auth.auth_created";
+    // await producer.publishMessage(routingKey, user, signature);
     const auth = await authModel.create({
       name: name,
       email: email,
@@ -98,7 +98,9 @@ exports.login = async (payload, res) => {
         message: `Please Fill up All the Required Fields`,
       });
     }
-    const user = await authModel.findOne({ email }).populate("additionalDetails").exec();
+    const user = await authModel.findOne({ email })
+      .populate("additionalDetails")
+      .exec();
     if (!user) {
       throw Object.assign(new Error(), {
         name: "INVALIDUSER",
@@ -126,11 +128,12 @@ exports.login = async (payload, res) => {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         httpOnly: true,
       };
-      return res.json({
-        status: 'success',
+      res.cookie("token", token, options).status(200).json({
+        success: true,
         token,
-        options
-    });
+        user,
+        message: `User Login Success`,
+      });
     }
   } catch (error) {
     console.error(error);
