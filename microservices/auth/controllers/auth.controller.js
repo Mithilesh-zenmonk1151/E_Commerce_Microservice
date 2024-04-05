@@ -17,26 +17,11 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    console.log("Login routeefegf")
-    const response = await userService.login(req, res);
-    if (response.status === 400) {
-      return res.status(400).json({
-        success: false,
-        message: `Please Fill up All the Required Fields`,
-      });
-    }
-  } catch (error) {
-    if (error.name === "INVALIDUSER") {
-      return res.status(401).json({
-        success: false,
-        message: error.message,
-      });
-    }
-    if (error.name === "INVALIDPASSWORD") {
-      return res.status(401).json({
-        success: false,
-        message: error.message,
-      });
-    }
+    console.log("Inside controlller login")
+    const user = await authService.login({data : req?.body});
+    res.status(200).json({user, message: "user loggedin successfully"});
   }
-};
+  catch(error) {
+    res.status(error?.code).json({message : error?.message});
+  }
+}

@@ -83,56 +83,17 @@ exports.subDeleteUser = async (data) => {
   const { uuid } = data;
 };
 exports.login = async (payload, res) => {
-  try {
-    const { email, password } = payload.body;
-    if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: `Please Fill up All the Required Fields`,
-      });
-    }
-    const user = await userModel.userModel
-      .findOne({ email })
-      .populate("additionalDetails")
-      .exec();
-    if (!user) {
-      throw Object.assign(new Error(), {
-        name: "INVALIDUSER",
-        message: "User Not  Exists!",
-      });
-    }
-    const isCorrectPassword = bcrypt.compareSync(password, user.password);
-    if (!isCorrectPassword) {
-      throw Object.assign(new Error(), {
-        name: "INVALIDPASSWORD",
-        message: "Wrong Password",
-      });
-    } else {
-      const token = jwt.sign(
-        { email: user.email, id: user._id },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "24h",
-        }
-      );
-      user.token = token;
-      user.password = undefined;
-      const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        httpOnly: true,
-      };
-
-      res.cookie("token", token, options).status(200).json({
-        success: true,
-        token,
-        user,
-        message: `User Login Success`,
-      });
-
-      console.log("login response");
-    }
-  } catch (error) {
-    console.error(error);
-    throw error;
+  const {email} = data;
+    const pwd = data.password;
+    if(!(email && pwd)) throw new CustomError("User credentials not found", 422);
+    const userDetails = await authModel.findOne({email : email});
+    if(!userDetails) throw new CustomError("User doesn't exist", 404);
+    console.log("login", data, "pwd", pwd);
+    if(!( await bcrypt.compare(pwd, userDetails.password))) throw new CustomError("User password is wrong", 401)
+    const token = jwt.sign({id : userDetails._id}, 'Zenmonk', {
+        expiresIn: '4h'
+    })
+    if(!token) throw new CustomError("Token not generating", 500);
+    const {_id , password, ...user} = userDetails._doc;
+    return {token, user};
   }
-};
